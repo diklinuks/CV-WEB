@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+
+  <title>Tymur Abdurakhmanov — AI &amp; Machine Learning</title>
+  <meta name="description" content="AI & Machine Learning student at Fontys, Eindhoven. Focused on Generative AI. Available for internships starting September 2026 in the Netherlands.">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Tymur Abdurakhmanov — AI & Machine Learning">
+  <meta property="og:description" content="AI & Machine Learning student at Fontys, Eindhoven. Available for internships starting September 2026 in the Netherlands.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%80%94%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#" class="site-nav__brand">Tymur Abdurakhmanov</a>
+      <ul class="site-nav__list" role="list">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ========================================================== -->
+    <!-- HERO                                                       -->
+    <!-- Edit name, headline, availability line, and buttons here.  -->
+    <!-- ========================================================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="hero__eligibility">
+        Nuffic-eligible · Available September 2026 · Based in Eindhoven, NL
+      </p>
+      <h1 id="hero-title" class="hero__title">
+        AI &amp; Machine Learning student at Fontys, focused on Generative AI.
+      </h1>
+      <p class="hero__sub">
+        I build LLM agents, RAG systems, and computer-vision pipelines.
+        Looking for a September 2026 internship in the Netherlands.
+      </p>
+      <div class="hero__actions">
+        <!-- The CV button will 404 until you drop cv.pdf in the repo root. -->
+        <a href="./cv.pdf" class="btn btn--primary" download>Download CV</a>
+        <a href="#contact" class="btn">Get in touch</a>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- WORK                                                       -->
+    <!-- To add a new project: copy one <li class="project"> block  -->
+    <!-- and paste it inside <ol class="projects">. Order matters — -->
+    <!-- top is shown first.                                        -->
+    <!-- ========================================================== -->
+    <section id="work" class="section" aria-labelledby="work-title">
+      <h2 id="work-title" class="section__title">Work</h2>
+
+      <ol class="projects" role="list">
+
+        <!-- Betsy -->
+        <li class="project">
+          <header class="project__head">
+            <h3 class="project__name">Betsy</h3>
+            <p class="project__tagline">
+              Autonomous procurement agent for a small manufacturer.
+            </p>
+          </header>
+          <p class="project__desc">
+            Single-agent (ReAct) LLM system that monitors inventory,
+            evaluates suppliers on price, lead-time, and reliability,
+            generates purchase orders, tracks deliveries, reconciles
+            invoices, and learns from outcomes. Pauses for human
+            approval on high-value decisions. Driven from a live
+            dashboard over a 90-day simulation. Reflection lessons are
+            embedded into a pgvector store so Betsy doesn't repeat
+            mistakes.
+          </p>
+          <ul class="project__tags" role="list">
+            <li>LangGraph</li>
+            <li>MCP tools</li>
+            <li>Gemini 2.5 Flash</li>
+            <li>PostgreSQL · pgvector</li>
+            <li>FastAPI</li>
+            <li>Python 3.12</li>
+          </ul>
+          <p class="project__links">
+            <a href="https://github.com/diklinuks/Betsy-App" target="_blank" rel="noopener">
+              Code →
+            </a>
+            <!-- Add the docs link here when Betsy-Obsidian is made public:
+                 <a href="https://github.com/diklinuks/Betsy-Obsidian" target="_blank" rel="noopener">Design docs →</a>
+            -->
+          </p>
+        </li>
+
+        <!-- Floating Waste Detection -->
+        <li class="project">
+          <header class="project__head">
+            <h3 class="project__name">Floating Waste Detection</h3>
+            <p class="project__tagline">
+              Computer vision pipeline for spotting floating waste in
+              surface water.
+            </p>
+          </header>
+          <p class="project__desc">
+            <!-- REPLACE: 2-3 sentences about the model, training data,
+                 and one notable result or thing that surprised you while
+                 building it. Keep it concrete — recruiters skim. -->
+            Object-detection pipeline trained to identify floating
+            waste in surface water from drone footage. Built as part of
+            a broader environmental-monitoring workflow.
+          </p>
+          <ul class="project__tags" role="list">
+            <li>Python</li>
+            <li>PyTorch</li>
+            <li>YOLO</li>
+            <li>OpenCV</li>
+          </ul>
+          <p class="project__links">
+            <!-- REPLACE: paste the public GitHub repo URL when ready,
+                 then remove the .project__link-todo line below. -->
+            <span class="project__link-todo">Repo link coming soon</span>
+          </p>
+        </li>
+
+        <!--
+          To add a new project, paste this template inside <ol class="projects">:
+
+          <li class="project">
+            <header class="project__head">
+              <h3 class="project__name">Project Name</h3>
+              <p class="project__tagline">One-line tagline.</p>
+            </header>
+            <p class="project__desc">2-3 sentence description.</p>
+            <ul class="project__tags" role="list">
+              <li>Tech</li>
+              <li>Stack</li>
+            </ul>
+            <p class="project__links">
+              <a href="https://github.com/..." target="_blank" rel="noopener">Code →</a>
+            </p>
+          </li>
+        -->
+
+      </ol>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- ABOUT                                                      -->
+    <!-- This is a draft written by Claude during the design        -->
+    <!-- session — rewrite in your own voice when you have time.    -->
+    <!-- ========================================================== -->
+    <section id="about" class="section" aria-labelledby="about-title">
+      <h2 id="about-title" class="section__title">About</h2>
+      <div class="prose">
+        <p>
+          I study Artificial Intelligence and Machine Learning at Fontys
+          University of Applied Sciences in Eindhoven. My focus is
+          generative AI: LLM agents, retrieval-augmented systems, and
+          the engineering around them.
+        </p>
+        <p>
+          Right now I'm building Betsy, an autonomous procurement agent
+          that makes purchasing decisions for a small manufacturer over
+          a 90-day simulation, and a computer-vision pipeline for
+          floating-waste detection from drone footage.
+        </p>
+        <p>
+          I'm looking for a September 2026 internship in the
+          Netherlands, ideally on a team working on applied generative
+          AI. I'm Nuffic-eligible, comfortable working in English, and
+          based in Eindhoven — no problem commuting to Amsterdam,
+          Rotterdam, or anywhere on the corridor.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- SKILLS                                                     -->
+    <!-- To add a new tool: drop a <li> inside the right group.     -->
+    <!-- ========================================================== -->
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <h2 id="skills-title" class="section__title">Skills</h2>
+
+      <dl class="skills">
+        <div class="skills__group">
+          <dt class="skills__label">AI &amp; ML</dt>
+          <dd>
+            <ul class="skills__chips" role="list">
+              <li>PyTorch</li>
+              <li>LangChain</li>
+              <li>LangGraph</li>
+              <li>RAG</li>
+              <li>YOLO</li>
+              <li>OpenCV</li>
+              <li>pgvector</li>
+              <li>MCP</li>
+            </ul>
+          </dd>
+        </div>
+        <div class="skills__group">
+          <dt class="skills__label">Languages</dt>
+          <dd>
+            <ul class="skills__chips" role="list">
+              <li>Python</li>
+              <li>SQL</li>
+              <li>JavaScript</li>
+            </ul>
+          </dd>
+        </div>
+        <div class="skills__group">
+          <dt class="skills__label">Tools</dt>
+          <dd>
+            <ul class="skills__chips" role="list">
+              <li>Git</li>
+              <li>Linux</li>
+              <li>Docker</li>
+              <li>FastAPI</li>
+              <li>PostgreSQL</li>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- CONTACT                                                    -->
+    <!-- Update the email and LinkedIn link below.                  -->
+    <!-- ========================================================== -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <h2 id="contact-title" class="section__title">Contact</h2>
+      <ul class="contacts" role="list">
+        <li>
+          <a href="mailto:abdurakhmanovtimur472@gmail.com">
+            <span class="contacts__label">Email</span>
+            <span class="contacts__value">abdurakhmanovtimur472@gmail.com</span>
+          </a>
+        </li>
+        <li>
+          <!-- REPLACE: 'diklinuks' is a guess based on your GitHub handle.
+               Update both the URL and the displayed slug to your real one. -->
+          <a href="https://www.linkedin.com/in/diklinuks/" target="_blank" rel="noopener">
+            <span class="contacts__label">LinkedIn</span>
+            <span class="contacts__value">/in/diklinuks</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/diklinuks" target="_blank" rel="noopener">
+            <span class="contacts__label">GitHub</span>
+            <span class="contacts__value">@diklinuks</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Tymur Abdurakhmanov.</p>
+    <p class="site-footer__note">
+      Hand-written HTML &amp; CSS. No framework, no build step, no
+      tracking. View-source for proof.
+    </p>
+  </footer>
+</body>
+</html>
