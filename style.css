@@ -1,13 +1,34 @@
 /* ============================================================
    Tymur Abdurakhmanov — Portfolio
-   Hand-written CSS. ~6KB minified. No framework.
+   Hand-written CSS. ~12KB. No framework. Shared across all pages.
    ============================================================ */
+
+/* === VIEW TRANSITIONS (cross-document, modern CSS) ========== */
+/* Smooth fade between pages in Chrome 126+, Edge 126+, Safari 18.2+.
+   Firefox falls back to instant nav (no error, just no animation). */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 200ms ease-out both fade-out;
+}
+::view-transition-new(root) {
+  animation: 280ms ease-out both fade-in;
+}
+
+@keyframes fade-out {
+  to { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+}
 
 /* === RESET ================================================== */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-body { line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
 img, picture, svg, video { display: block; max-width: 100%; }
 input, button, textarea, select { font: inherit; color: inherit; }
 button { background: none; border: none; cursor: pointer; }
@@ -16,15 +37,18 @@ a { color: inherit; text-decoration: none; }
 
 /* === TOKENS (light, default) ================================ */
 :root {
-  --bg:            #fdfdfd;
-  --bg-elevated:   #ffffff;
-  --text:          #0a0a0a;
-  --text-soft:     #2a2a2a;
-  --text-muted:    #6a6a6a;
-  --border:        #ececec;
-  --border-strong: #d4d4d4;
-  --accent:        #2563eb;
-  --accent-soft:   #eff6ff;
+  --bg:             #fdfdfd;
+  --bg-elevated:    #ffffff;
+  --bg-hover:       #f5f5f5;
+  --text:           #0a0a0a;
+  --text-soft:      #2a2a2a;
+  --text-muted:     #6a6a6a;
+  --border:         #ececec;
+  --border-strong:  #d4d4d4;
+  --accent:         #2563eb;
+  --accent-soft:    #eff6ff;
+  --shadow:         0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-hover:   0 2px 4px rgba(0,0,0,0.06), 0 12px 24px rgba(0,0,0,0.08);
 
   --font:      ui-sans-serif, system-ui, -apple-system, "Segoe UI",
                Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -40,24 +64,28 @@ a { color: inherit; text-decoration: none; }
   --space-16: 4rem;
   --space-24: 6rem;
 
-  --width-content: 44rem;   /* ~720px */
-  --radius:    6px;
+  --width-content: 44rem;
+  --width-wide:    56rem;
+  --radius:    8px;
   --radius-sm: 4px;
-  --transition: 150ms ease;
+  --transition: 180ms ease;
 }
 
-/* === TOKENS (dark, auto via OS setting) ===================== */
+/* === TOKENS (dark, auto) ==================================== */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:            #0a0a0a;
-    --bg-elevated:   #141414;
-    --text:          #f5f5f5;
-    --text-soft:     #c4c4c4;
-    --text-muted:    #888888;
-    --border:        #1f1f1f;
-    --border-strong: #2a2a2a;
-    --accent:        #60a5fa;
-    --accent-soft:   #1e293b;
+    --bg:             #0a0a0a;
+    --bg-elevated:    #141414;
+    --bg-hover:       #1a1a1a;
+    --text:           #f5f5f5;
+    --text-soft:      #c4c4c4;
+    --text-muted:     #888888;
+    --border:         #1f1f1f;
+    --border-strong:  #2a2a2a;
+    --accent:         #60a5fa;
+    --accent-soft:    #1e293b;
+    --shadow:         0 1px 2px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
+    --shadow-hover:   0 2px 4px rgba(0,0,0,0.5), 0 12px 24px rgba(0,0,0,0.5);
   }
 }
 
@@ -73,12 +101,13 @@ h1, h2, h3 {
   line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.01em;
+  color: var(--text);
 }
 
 a {
   color: var(--accent);
   text-decoration-color: transparent;
-  transition: text-decoration-color var(--transition);
+  transition: text-decoration-color var(--transition), color var(--transition);
 }
 a:hover {
   text-decoration: underline;
@@ -86,10 +115,9 @@ a:hover {
   text-underline-offset: 2px;
 }
 
-/* sections have anchor scroll-margin so sticky header doesn't cover the title */
-.section, .hero { scroll-margin-top: 4.5rem; }
+.section, .hero, .page-head { scroll-margin-top: 4.5rem; }
 
-/* === SKIP LINK (a11y) ======================================= */
+/* === SKIP LINK ============================================== */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -102,7 +130,7 @@ a:hover {
 }
 .skip-link:focus { left: var(--space-2); top: var(--space-2); }
 
-/* === HEADER ================================================= */
+/* === HEADER / NAV =========================================== */
 .site-header {
   position: sticky;
   top: 0;
@@ -113,7 +141,7 @@ a:hover {
   border-bottom: 1px solid var(--border);
 }
 .site-nav {
-  max-width: var(--width-content);
+  max-width: var(--width-wide);
   margin: 0 auto;
   padding: var(--space-4);
   display: flex;
@@ -133,10 +161,22 @@ a:hover {
 .site-nav__list a {
   color: var(--text-muted);
   font-size: 0.9rem;
+  position: relative;
 }
 .site-nav__list a:hover {
   color: var(--text);
   text-decoration: none;
+}
+.site-nav__list a[aria-current="page"] {
+  color: var(--text);
+}
+.site-nav__list a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  bottom: -1.25rem;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--text);
 }
 
 /* === LAYOUT ================================================= */
@@ -144,12 +184,16 @@ main {
   max-width: var(--width-content);
   margin: 0 auto;
   padding: 0 var(--space-4);
+  flex: 1;
+  width: 100%;
 }
+main.is-wide { max-width: var(--width-wide); }
 
 .section {
   padding: var(--space-16) 0;
   border-top: 1px solid var(--border);
 }
+.section:first-child { border-top: none; }
 .section__title {
   font-size: 0.75rem;
   font-weight: 600;
@@ -159,7 +203,7 @@ main {
   margin-bottom: var(--space-8);
 }
 
-/* === HERO =================================================== */
+/* === HERO (homepage) ======================================== */
 .hero {
   padding: var(--space-24) 0 var(--space-16);
 }
@@ -170,10 +214,9 @@ main {
   margin-bottom: var(--space-6);
 }
 .hero__title {
-  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  font-size: clamp(1.75rem, 5vw, 2.6rem);
   margin-bottom: var(--space-6);
   max-width: 32ch;
-  color: var(--text);
 }
 .hero__sub {
   color: var(--text-soft);
@@ -185,6 +228,29 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+}
+
+/* === PAGE HEAD (interior pages) ============================= */
+.page-head {
+  padding: var(--space-16) 0 var(--space-8);
+}
+.page-head__breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: var(--space-4);
+}
+.page-head__breadcrumb a { color: var(--text-muted); }
+.page-head__breadcrumb a:hover { color: var(--text); text-decoration: none; }
+.page-head__breadcrumb span { margin: 0 var(--space-2); }
+.page-head__title {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  margin-bottom: var(--space-3);
+}
+.page-head__sub {
+  color: var(--text-soft);
+  font-size: 1.05rem;
+  max-width: 56ch;
 }
 
 /* === BUTTONS ================================================ */
@@ -200,12 +266,15 @@ main {
   color: var(--text);
   transition: border-color var(--transition),
               background-color var(--transition),
-              color var(--transition);
+              color var(--transition),
+              transform var(--transition);
 }
 .btn:hover {
   border-color: var(--text);
   text-decoration: none;
+  transform: translateY(-1px);
 }
+.btn:active { transform: translateY(0); }
 .btn--primary {
   background: var(--text);
   color: var(--bg);
@@ -217,77 +286,224 @@ main {
   color: var(--bg);
 }
 
-/* === PROJECTS =============================================== */
-.projects {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
+/* === PROJECT CARDS (homepage teaser + /projects index) ====== */
+.project-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
 }
-.project {
+@media (min-width: 720px) {
+  .project-cards { grid-template-columns: 1fr 1fr; }
+}
+.project-card {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  color: var(--text);
+  transition: border-color var(--transition),
+              box-shadow var(--transition),
+              transform var(--transition);
 }
-.project__head {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+.project-card:hover {
+  text-decoration: none;
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
 }
-.project__name {
-  font-size: 1.25rem;
+.project-card__name {
+  font-size: 1.2rem;
+  font-weight: 600;
   color: var(--text);
 }
-.project__tagline {
+.project-card__tagline {
   color: var(--text-muted);
   font-size: 0.95rem;
 }
-.project__desc {
-  color: var(--text-soft);
-  max-width: 64ch;
-}
-.project__tags {
+.project-card__tags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
-  margin-top: var(--space-1);
+  margin-top: auto;
+  padding-top: var(--space-3);
 }
-.project__tags li {
+.project-card__tags li {
   font-size: 0.72rem;
   font-family: var(--font-mono);
   color: var(--text-muted);
   padding: var(--space-1) var(--space-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  letter-spacing: 0.01em;
 }
-.project__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
+.project-card__more {
+  font-size: 0.85rem;
+  color: var(--accent);
   margin-top: var(--space-2);
 }
-.project__links a {
-  font-size: 0.9rem;
-  font-weight: 500;
+
+/* === PROJECT DETAIL ========================================= */
+.project-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
 }
-.project__link-todo {
-  font-size: 0.85rem;
+.project-detail__tags li {
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
   color: var(--text-muted);
-  font-style: italic;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.project-detail__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
 }
 
-/* === PROSE (about) ========================================== */
+/* === PROSE ================================================== */
 .prose {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  max-width: 64ch;
 }
-.prose p {
+.prose p { color: var(--text-soft); }
+.prose h3 {
+  font-size: 1.05rem;
+  margin-top: var(--space-6);
+}
+.prose ul, .prose ol {
+  color: var(--text-soft);
+  padding-left: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-elevated);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.prose pre {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+.prose pre code { background: none; border: none; padding: 0; }
+
+/* === DEFINITION TABLE (used on CV + detail pages) =========== */
+.deftable {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: var(--space-3) var(--space-6);
+  margin: 0;
+}
+.deftable dt {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.deftable dd { color: var(--text-soft); margin: 0; }
+
+/* === CV-SPECIFIC ============================================ */
+.cv-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-6);
+  align-items: center;
+  padding: var(--space-12) 0 var(--space-8);
+}
+.cv-hero__photo {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  text-align: center;
+  overflow: hidden;
+}
+.cv-hero__photo img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.cv-hero__name {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+.cv-hero__role {
+  color: var(--text-soft);
+  margin-bottom: var(--space-2);
+}
+.cv-hero__meta {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.cv-block {
+  padding: var(--space-8) 0;
+  border-top: 1px solid var(--border);
+}
+.cv-block__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.cv-entry {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+.cv-entry:last-child { margin-bottom: 0; }
+.cv-entry__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.cv-entry__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.cv-entry__org {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+.cv-entry__when {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.cv-entry__body {
   color: var(--text-soft);
   max-width: 64ch;
 }
 
-/* === SKILLS ================================================= */
+/* === SKILLS =================================================  */
 .skills {
   display: flex;
   flex-direction: column;
@@ -335,7 +551,7 @@ main {
 .contacts li:first-child a { border-top: 1px solid var(--border); }
 .contacts a:hover {
   text-decoration: none;
-  background: var(--bg-elevated);
+  background: var(--bg-hover);
 }
 .contacts__label {
   color: var(--text-muted);
@@ -348,9 +564,20 @@ main {
   word-break: break-all;
 }
 
+/* === CALLOUT ================================================ */
+.callout {
+  padding: var(--space-4) var(--space-6);
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--text-soft);
+  margin: var(--space-4) 0;
+  font-size: 0.92rem;
+}
+
 /* === FOOTER ================================================= */
 .site-footer {
-  max-width: var(--width-content);
+  max-width: var(--width-wide);
   margin: 0 auto;
   padding: var(--space-12) var(--space-4) var(--space-8);
   border-top: 1px solid var(--border);
@@ -360,6 +587,27 @@ main {
 .site-footer p { margin-bottom: var(--space-2); }
 .site-footer p:last-child { margin-bottom: 0; }
 
+/* === 404 ==================================================== */
+.error-page {
+  padding: var(--space-24) 0;
+  text-align: center;
+}
+.error-page__code {
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: var(--space-4);
+}
+.error-page__title {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-4);
+}
+.error-page__sub {
+  color: var(--text-soft);
+  margin-bottom: var(--space-8);
+}
+
 /* === MOBILE ================================================= */
 @media (max-width: 640px) {
   .site-nav { padding: var(--space-3) var(--space-4); }
@@ -368,12 +616,23 @@ main {
     grid-template-columns: 1fr;
     gap: var(--space-2);
   }
+  .deftable {
+    grid-template-columns: 1fr;
+    gap: var(--space-1) 0;
+  }
+  .deftable dt { margin-top: var(--space-3); }
+  .deftable dt:first-child { margin-top: 0; }
   .contacts a {
     grid-template-columns: 5rem 1fr;
     gap: var(--space-3);
   }
+  .cv-hero {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
   .hero { padding: var(--space-16) 0 var(--space-12); }
-  .section { padding: var(--space-12) 0; }
+  .section, .cv-block { padding: var(--space-12) 0; }
+  .page-head { padding: var(--space-12) 0 var(--space-6); }
 }
 
 /* === MOTION ================================================= */
@@ -383,6 +642,10 @@ html { scroll-behavior: smooth; }
   *, *::before, *::after {
     transition-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
   }
 }
 

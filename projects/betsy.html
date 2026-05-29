@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+
+  <title>Betsy — Tymur Abdurakhmanov</title>
+  <meta name="description" content="Betsy: autonomous procurement agent. ReAct + LangGraph + MCP + Gemini + PostgreSQL/pgvector. 90-day simulation with human-in-the-loop approval.">
+
+  <meta property="og:title" content="Betsy — Autonomous Procurement Agent">
+  <meta property="og:description" content="Single-agent ReAct system using LangGraph, MCP, Gemini, and pgvector for autonomous procurement decisions.">
+  <meta property="og:type" content="article">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%80%94%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../" class="site-nav__brand">Tymur Abdurakhmanov</a>
+      <ul class="site-nav__list" role="list">
+        <li><a href="../">Home</a></li>
+        <li><a href="../cv.html">CV</a></li>
+        <li><a href="../projects.html" aria-current="page">Projects</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ========================================================== -->
+    <!-- HEAD                                                       -->
+    <!-- ========================================================== -->
+    <section class="page-head">
+      <p class="page-head__breadcrumb">
+        <a href="../">Home</a><span>/</span>
+        <a href="../projects.html">Projects</a><span>/</span>Betsy
+      </p>
+      <h1 class="page-head__title">Betsy</h1>
+      <p class="page-head__sub">
+        Autonomous procurement agent for a small manufacturer.
+        Single-agent ReAct system that monitors inventory, evaluates
+        suppliers, generates purchase orders, and learns from outcomes
+        over a 90-day simulation.
+      </p>
+    </section>
+
+    <ul class="project-detail__tags" role="list">
+      <li>LangGraph</li>
+      <li>MCP tools</li>
+      <li>Gemini 2.5 Flash</li>
+      <li>PostgreSQL · pgvector</li>
+      <li>FastAPI</li>
+      <li>Python 3.12</li>
+      <li>Docker</li>
+    </ul>
+
+    <div class="project-detail__links">
+      <a href="https://github.com/diklinuks/Betsy-App" target="_blank" rel="noopener" class="btn btn--primary">
+        Code on GitHub ↗
+      </a>
+      <!-- Uncomment when Betsy-Obsidian is made public:
+      <a href="https://github.com/diklinuks/Betsy-Obsidian" target="_blank" rel="noopener" class="btn">
+        Design docs ↗
+      </a>
+      -->
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- BODY                                                       -->
+    <!-- ========================================================== -->
+    <article class="prose">
+
+      <h3>What Betsy does</h3>
+      <p>
+        Betsy is a single autonomous agent that runs the procurement
+        function for a small manufacturer. Each simulated day she
+        watches inventory levels, decides when something needs
+        reordering, weighs suppliers on price, lead-time, and
+        reliability, places purchase orders, tracks deliveries,
+        reconciles invoices, and reflects on the outcome of each
+        decision. High-value or unusual decisions pause for human
+        approval rather than executing autonomously.
+      </p>
+
+      <h3>Architecture</h3>
+      <p>
+        The agent is a LangGraph <code>create_react_agent</code> with
+        tools exposed via an MCP (Model Context Protocol) server.
+        LangGraph consumes the tools through
+        <code>langchain-mcp-adapters</code>, which means the same tool
+        definitions can be used from the agent or independently. The
+        LLM (Gemini 2.5 Flash) proposes — the actual decisions, caps,
+        and writes are enforced in code, not by the model.
+      </p>
+
+      <h3>The split between LLM and code</h3>
+      <p>
+        This is the principle that makes the system trustworthy:
+      </p>
+      <ul>
+        <li><strong>LLM proposes</strong> — suggests which supplier, how much, when.</li>
+        <li><strong>Code decides and enforces</strong> — applies caps, checks blocked-supplier lists, writes to the database, ensures the audit log is append-only.</li>
+        <li><strong>LLM reflects</strong> — after an outcome, it writes a one-paragraph lesson which gets embedded into the vector store.</li>
+      </ul>
+
+      <h3>Memory</h3>
+      <p>
+        Two layers: structured data (suppliers, orders, deliveries,
+        invoices) lives in PostgreSQL. Rationale and learned lessons
+        live in <code>pgvector</code>. When a similar reorder situation
+        comes up, Betsy retrieves relevant past lessons before
+        deciding, so she doesn't repeat mistakes.
+      </p>
+
+      <h3>The Jenny dashboard</h3>
+      <p>
+        A FastAPI web app where the human operator (Jenny) runs the
+        simulation, watches it tick, approves or rejects flagged
+        decisions, inspects the audit log, tunes the scoring weights,
+        and reads the final report. Rejections require a reason — the
+        reason becomes a learned lesson.
+      </p>
+
+      <h3>Ethics &amp; safety</h3>
+      <p>
+        Hard guardrails enforced in code, not by the LLM: spending
+        caps, blocked-supplier lists, append-only audit log, and
+        privacy projections on what the agent sees. The agent cannot
+        bypass these regardless of what it proposes.
+      </p>
+
+      <h3>Observability</h3>
+      <p>
+        LangGraph Studio provides a visual, step-through view of the
+        graph. LangSmith tracing captures every LLM call. The MCP
+        server can be inspected on its own. If MCP setup is awkward, a
+        single env var (<code>BETSY_TOOLS_TRANSPORT=local</code>)
+        wires the identical tools in-process.
+      </p>
+
+      <h3>How to run it</h3>
+      <p>
+        Full setup is in the
+        <a href="https://github.com/diklinuks/Betsy-App#quick-start" target="_blank" rel="noopener">repo README</a>.
+        The short version:
+      </p>
+      <pre><code>docker compose up -d
+python3.12 -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env  # paste your GEMINI_API_KEY
+python -m app.main load
+uvicorn app.web.main:app --reload --port 8000</code></pre>
+      <p>
+        Without a Gemini key the simulation still runs using a
+        transparent rule-based fallback, so you can see the system
+        without spending anything.
+      </p>
+
+      <h3>Tests</h3>
+      <p>
+        <code>pytest tests/ -q</code> covers the pure logic — supplier
+        scoring and scenario scheduling — without spinning up the LLM
+        or database.
+      </p>
+
+    </article>
+
+    <p style="margin-top: var(--space-12);">
+      <a href="../projects.html">← Back to all projects</a>
+    </p>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Tymur Abdurakhmanov.</p>
+    <p>
+      <a href="../">Home</a> ·
+      <a href="../cv.html">CV</a> ·
+      <a href="../projects.html">Projects</a> ·
+      <a href="mailto:abdurakhmanovtimur472@gmail.com">Contact</a>
+    </p>
+  </footer>
+</body>
+</html>

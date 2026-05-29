@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+
+  <title>Floating Waste Detection — Tymur Abdurakhmanov</title>
+  <meta name="description" content="Computer-vision pipeline for identifying floating waste in surface water from drone footage. Python, PyTorch, YOLO, OpenCV.">
+
+  <meta property="og:title" content="Floating Waste Detection">
+  <meta property="og:description" content="Computer-vision pipeline for identifying floating waste in surface water from drone footage.">
+  <meta property="og:type" content="article">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%80%94%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../" class="site-nav__brand">Tymur Abdurakhmanov</a>
+      <ul class="site-nav__list" role="list">
+        <li><a href="../">Home</a></li>
+        <li><a href="../cv.html">CV</a></li>
+        <li><a href="../projects.html" aria-current="page">Projects</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ========================================================== -->
+    <!-- HEAD                                                       -->
+    <!-- ========================================================== -->
+    <section class="page-head">
+      <p class="page-head__breadcrumb">
+        <a href="../">Home</a><span>/</span>
+        <a href="../projects.html">Projects</a><span>/</span>Floating Waste Detection
+      </p>
+      <h1 class="page-head__title">Floating Waste Detection</h1>
+      <p class="page-head__sub">
+        Computer-vision pipeline for identifying floating waste in
+        surface water from drone footage.
+      </p>
+    </section>
+
+    <ul class="project-detail__tags" role="list">
+      <li>Python</li>
+      <li>PyTorch</li>
+      <li>YOLO</li>
+      <li>OpenCV</li>
+      <li>NumPy</li>
+    </ul>
+
+    <div class="project-detail__links">
+      <!-- REPLACE: when you have a public repo for this project,
+           replace this disabled button with a real link.
+           Example:
+           <a href="https://github.com/diklinuks/floating-waste"
+              class="btn btn--primary" target="_blank" rel="noopener">
+             Code on GitHub ↗
+           </a>
+      -->
+      <span class="btn" style="opacity: 0.5; cursor: not-allowed;">
+        Code repo coming soon
+      </span>
+    </div>
+
+    <p class="callout">
+      This page is a placeholder I'll fill in as the project matures.
+      Below is what I have so far — the architecture is real but some
+      details (datasets, metrics, screenshots) are still being
+      written up. Last updated: <!-- REPLACE: date when you next edit this -->
+      May 2026.
+    </p>
+
+    <!-- ========================================================== -->
+    <!-- BODY                                                       -->
+    <!-- ========================================================== -->
+    <article class="prose">
+
+      <h3>The problem</h3>
+      <p>
+        <!-- REPLACE: 2-3 sentences. What's the real-world motivation?
+             Is this for a course, a client, an environmental group?
+             Why drones specifically? -->
+        Surface waste in canals, harbours, and lakes is a hard problem
+        to monitor at scale. Drone footage gives wide coverage, but
+        someone has to actually watch the footage or write a tool that
+        does. This pipeline does the second part.
+      </p>
+
+      <h3>What it does</h3>
+      <p>
+        An object-detection model (YOLO-family) is trained to identify
+        floating waste objects — bottles, plastic fragments, larger
+        debris — in still frames sampled from drone footage. Detected
+        objects are tagged with class, confidence, and frame
+        timestamp, then aggregated across the footage for reporting.
+      </p>
+
+      <h3>Architecture</h3>
+      <p>
+        <!-- REPLACE: describe the actual pipeline:
+             - data source (which dataset? scraped frames? labelled by whom?)
+             - preprocessing (resize? color balance?)
+             - model choice (YOLOv8? YOLOv11? why?)
+             - training setup (epochs, augmentation, hardware)
+             - inference loop
+             - aggregation/output
+        -->
+        Frames are sampled from drone footage at a configurable rate,
+        preprocessed (resize, color normalization), passed through the
+        detection model, and the resulting detections are written out
+        as structured records for downstream reporting.
+      </p>
+
+      <h3>What surprised me</h3>
+      <p>
+        <!-- REPLACE: one specific thing you learned the hard way.
+             Recruiters at Booking/Adyen explicitly test for engineers
+             who can articulate what they actually learned. Don't waste
+             this section on generic statements — be specific. -->
+        Write the one thing here that you didn't expect. Could be a
+        dataset issue, a training surprise, a deployment gotcha, an
+        edge case you only noticed in real footage, anything concrete.
+      </p>
+
+      <h3>What's next</h3>
+      <p>
+        <!-- REPLACE: real next steps. -->
+        Ongoing work: better night-time performance, faster inference,
+        and an evaluation set of real drone footage from a partner
+        organisation.
+      </p>
+
+    </article>
+
+    <p style="margin-top: var(--space-12);">
+      <a href="../projects.html">← Back to all projects</a>
+    </p>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Tymur Abdurakhmanov.</p>
+    <p>
+      <a href="../">Home</a> ·
+      <a href="../cv.html">CV</a> ·
+      <a href="../projects.html">Projects</a> ·
+      <a href="mailto:abdurakhmanovtimur472@gmail.com">Contact</a>
+    </p>
+  </footer>
+</body>
+</html>
