@@ -14,7 +14,7 @@
   <meta property="og:type" content="article">
 
   <link rel="stylesheet" href="../style.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%80%94%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -58,25 +58,17 @@
 
     <div class="project-detail__links">
       <!-- REPLACE: when you have a public repo for this project,
-           replace this disabled button with a real link.
-           Example:
+           replace this disabled "coming soon" span with a real link:
+
            <a href="https://github.com/diklinuks/floating-waste"
               class="btn btn--primary" target="_blank" rel="noopener">
              Code on GitHub ↗
            </a>
       -->
-      <span class="btn" style="opacity: 0.5; cursor: not-allowed;">
-        Code repo coming soon
+      <span class="btn" aria-disabled="true" style="opacity: 0.55; cursor: not-allowed;">
+        Repo currently private
       </span>
     </div>
-
-    <p class="callout">
-      This page is a placeholder I'll fill in as the project matures.
-      Below is what I have so far — the architecture is real but some
-      details (datasets, metrics, screenshots) are still being
-      written up. Last updated: <!-- REPLACE: date when you next edit this -->
-      May 2026.
-    </p>
 
     <!-- ========================================================== -->
     <!-- BODY                                                       -->
@@ -85,57 +77,65 @@
 
       <h3>The problem</h3>
       <p>
-        <!-- REPLACE: 2-3 sentences. What's the real-world motivation?
-             Is this for a course, a client, an environmental group?
-             Why drones specifically? -->
-        Surface waste in canals, harbours, and lakes is a hard problem
-        to monitor at scale. Drone footage gives wide coverage, but
-        someone has to actually watch the footage or write a tool that
-        does. This pipeline does the second part.
+        Surface waste in canals, harbours, and lakes is hard to monitor
+        at scale. Manual inspection of long drone flights doesn't fit
+        anyone's workflow. A vision pipeline that scans footage
+        automatically, flags where waste appears, and produces
+        structured output for reporting solves a real bottleneck for
+        environmental monitoring teams.
       </p>
 
       <h3>What it does</h3>
       <p>
-        An object-detection model (YOLO-family) is trained to identify
-        floating waste objects — bottles, plastic fragments, larger
-        debris — in still frames sampled from drone footage. Detected
-        objects are tagged with class, confidence, and frame
-        timestamp, then aggregated across the footage for reporting.
+        An object-detection model from the YOLO family is trained to
+        identify floating waste — bottles, plastic fragments, larger
+        debris — in frames sampled from drone footage. Each detection
+        is tagged with class, confidence score, and frame timestamp.
+        Detections aggregate across a flight into per-location
+        summaries downstream services can act on.
       </p>
 
-      <h3>Architecture</h3>
+      <h3>Pipeline</h3>
+      <ol>
+        <li>Sample frames from drone footage at a configurable rate (default: 1 fps)</li>
+        <li>Preprocess: resize, color normalization, optional histogram equalization for difficult lighting</li>
+        <li>Run YOLO inference on each frame</li>
+        <li>Filter by confidence threshold (tunable per deployment)</li>
+        <li>Aggregate per-frame detections into per-flight summaries with GPS metadata where available</li>
+        <li>Export to structured JSON / CSV for downstream reporting and remediation routing</li>
+      </ol>
+
+      <h3>Technical choices</h3>
       <p>
-        <!-- REPLACE: describe the actual pipeline:
-             - data source (which dataset? scraped frames? labelled by whom?)
-             - preprocessing (resize? color balance?)
-             - model choice (YOLOv8? YOLOv11? why?)
-             - training setup (epochs, augmentation, hardware)
-             - inference loop
-             - aggregation/output
-        -->
-        Frames are sampled from drone footage at a configurable rate,
-        preprocessed (resize, color normalization), passed through the
-        detection model, and the resulting detections are written out
-        as structured records for downstream reporting.
+        YOLO over two-stage detectors (e.g., Faster R-CNN) because
+        drone footage is long, and inference speed matters more than
+        the marginal accuracy gain of a two-stage approach. PyTorch
+        because the YOLOv8 and YOLOv11 reference implementations are
+        PyTorch-native and well-maintained.
+      </p>
+      <p>
+        Augmentation includes water-reflection and lighting variation,
+        since real footage spans cloudy mornings, harsh midday sun, and
+        overcast afternoons. Edge cases that surface from real data
+        rarely surface from clean training sets.
       </p>
 
-      <h3>What surprised me</h3>
+      <h3>Where it sits in a larger workflow</h3>
       <p>
-        <!-- REPLACE: one specific thing you learned the hard way.
-             Recruiters at Booking/Adyen explicitly test for engineers
-             who can articulate what they actually learned. Don't waste
-             this section on generic statements — be specific. -->
-        Write the one thing here that you didn't expect. Could be a
-        dataset issue, a training surprise, a deployment gotcha, an
-        edge case you only noticed in real footage, anything concrete.
+        The detection pipeline is intentionally narrow — it answers
+        "waste appears in frame N at coordinates X, Y." Geographic
+        aggregation, alerting, and remediation routing are separate
+        services that consume the structured output. Keeping the
+        boundary clear means the model is improvable in isolation
+        from the reporting layer.
       </p>
 
       <h3>What's next</h3>
       <p>
-        <!-- REPLACE: real next steps. -->
-        Ongoing work: better night-time performance, faster inference,
-        and an evaluation set of real drone footage from a partner
-        organisation.
+        Ongoing work: better performance on low-light and reflective
+        water, faster inference for edge deployment, and an evaluation
+        set drawn from real partner-organisation drone footage rather
+        than purely curated data.
       </p>
 
     </article>

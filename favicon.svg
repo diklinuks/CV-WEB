@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    rect { fill: #0a0a0a; }
+    text { fill: #fdfdfd; }
+    @media (prefers-color-scheme: dark) {
+      rect { fill: #fdfdfd; }
+      text { fill: #0a0a0a; }
+    }
+  </style>
+  <rect width="100" height="100" rx="18"/>
+  <text x="50" y="68" text-anchor="middle" font-size="44" font-weight="600"
+        font-family="ui-sans-serif,system-ui,-apple-system,sans-serif">TA</text>
+</svg>

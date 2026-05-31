@@ -656,3 +656,65 @@ html { scroll-behavior: smooth; }
   border-radius: var(--radius-sm);
 }
 :focus:not(:focus-visible) { outline: none; }
+
+/* === PRINT (CV page especially) ============================ */
+@media print {
+  /* Force white background, black text — even if the visitor's OS is dark mode */
+  :root {
+    --bg:            #ffffff;
+    --bg-elevated:   #ffffff;
+    --bg-hover:      #ffffff;
+    --text:          #000000;
+    --text-soft:     #1a1a1a;
+    --text-muted:    #555555;
+    --border:        #cccccc;
+    --border-strong: #999999;
+    --accent:        #000000;
+    --accent-soft:   #f5f5f5;
+    --shadow:        none;
+    --shadow-hover:  none;
+  }
+
+  body { font-size: 11pt; }
+
+  /* Hide non-printable elements */
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .btn,
+  .page-head__breadcrumb,
+  .hero__actions,
+  nav { display: none !important; }
+
+  /* Expand main for full-width printing */
+  main, main.is-wide {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Avoid splitting entries across pages */
+  .cv-entry, .cv-block, .section, .project, .project-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+
+  /* Show link URLs after the link text (so printed page is useful) */
+  a[href^="http"]::after,
+  a[href^="mailto"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+  }
+
+  /* Don't bother decorating internal anchor links */
+  a[href^="#"]::after,
+  a[href^="./"]::after,
+  a[href^="../"]::after { content: ""; }
+
+  /* No view transitions in print */
+  @view-transition { navigation: none; }
+}
