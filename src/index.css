@@ -68,11 +68,6 @@
   a { color: var(--accent-ink); text-underline-offset: 3px; }
   .prose a { text-decoration: underline; text-decoration-color: var(--line-strong); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-
-  /* Hide native cursor only once the custom cursor is mounted (fine pointers) */
-  @media (pointer: fine) {
-    html.cursor-on, html.cursor-on * { cursor: none !important; }
-  }
 }
 
 @layer components {

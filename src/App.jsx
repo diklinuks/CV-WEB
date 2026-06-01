@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import Cursor from "./components/Cursor";
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -36,7 +35,6 @@ export default function App() {
   const isHome = location.pathname === "/";
   return (
     <div className="flex min-h-screen flex-col">
-      <Cursor />
       <ScrollToTop />
       <Menu />
       <div className="flex-1">
