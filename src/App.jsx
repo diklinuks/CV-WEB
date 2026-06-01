@@ -1,14 +1,23 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import Menu from "./components/Menu";
-import Footer from "./components/Footer";
+import TopBar from "./components/TopBar";
+import ColorLine from "./components/ColorLine";
 import Home from "./pages/Home";
 import CV from "./pages/CV";
 import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+
+// One main colour per section (the line motif).
+const RED = "#ff5757", GREEN = "#3ddc84", BLUE = "#4aa3ff";
+function lineColor(pathname) {
+  if (pathname.startsWith("/cv")) return RED;
+  if (pathname.startsWith("/projects")) return GREEN;
+  if (pathname.startsWith("/contact")) return BLUE;
+  return null;
+}
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -33,11 +42,14 @@ const Page = ({ children }) => <motion.main {...pageMotion}>{children}</motion.m
 export default function App() {
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const color = lineColor(location.pathname);
+
   return (
     <div className="flex min-h-screen flex-col">
       <ScrollToTop />
-      <Menu />
-      <div className="flex-1">
+      {!isHome && <TopBar />}
+      {!isHome && color && <ColorLine color={color} />}
+      <div className="relative z-10 flex-1">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Page><Home /></Page>} />
@@ -49,7 +61,6 @@ export default function App() {
           </Routes>
         </AnimatePresence>
       </div>
-      {!isHome && <Footer />}
     </div>
   );
 }

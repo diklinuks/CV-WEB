@@ -56,25 +56,29 @@ export default function ShaderWave() {
               vec2 uv = gl_FragCoord.xy / iResolution.xy;
               float t = iTime;
 
-              // flowing multi-octave wave, baseline in the lower third
-              float base = 0.36;
+              // flowing wave, baseline near the bottom so text sits above it
+              float base = 0.18;
               float w = base
-                + 0.085 * sin(uv.x * 3.0 + t * 0.8)
-                + 0.045 * sin(uv.x * 6.3 - t * 0.55)
-                + 0.022 * sin(uv.x * 12.0 + t * 1.3);
+                + 0.055 * sin(uv.x * 3.0 + t * 0.8)
+                + 0.030 * sin(uv.x * 6.3 - t * 0.55)
+                + 0.015 * sin(uv.x * 12.0 + t * 1.3);
 
               float d = uv.y - w;
               float dist = abs(d);
 
-              float glow = 0.018 / (dist + 0.015);
-              float band = exp(-pow(d * 6.0, 2.0));
-              glow *= (0.45 + band);
+              float glow = 0.016 / (dist + 0.014);
+              float band = exp(-pow(d * 6.5, 2.0));
+              glow *= (0.42 + band);
 
-              float core = smoothstep(0.045, 0.0, dist);
+              float core = smoothstep(0.04, 0.0, dist);
 
-              float hue = fract(uv.x * 0.55 + t * 0.035 + d * 0.6);
-              vec3 col = hsv2rgb(vec3(hue, 0.9, 1.0));
-              col = mix(col, vec3(1.0), core * 0.85);
+              // white at the far left, dispersing into red -> green -> blue
+              float seg = clamp((uv.x - 0.16) / 0.74, 0.0, 1.0);
+              float hue = seg * 0.66; // 0=red, .33=green, .66=blue
+              vec3 rgb = hsv2rgb(vec3(hue, 0.92, 1.0));
+              float white = smoothstep(0.26, 0.0, uv.x);
+              vec3 col = mix(rgb, vec3(1.0), white);
+              col = mix(col, vec3(1.0), core * 0.7);
 
               vec3 outc = col * glow;
               float a = clamp(max(outc.r, max(outc.g, outc.b)), 0.0, 1.0);
