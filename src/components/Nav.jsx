@@ -1,5 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { to: "/", label: "Index", end: true },
@@ -18,28 +19,31 @@ export default function Nav() {
         >
           Tymur Abdurakhmanov
         </Link>
-        <nav aria-label="Primary" className="flex gap-4 md:gap-5">
-          {links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.end}
-              className="relative font-mono text-[0.68rem] uppercase tracking-[0.1em] text-ink-muted transition-colors hover:text-ink md:text-[0.74rem]"
-            >
-              {({ isActive }) => (
-                <>
-                  <span className={isActive ? "text-ink" : ""}>{l.label}</span>
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute -bottom-[6px] left-0 right-0 h-[2px] bg-accent"
-                    />
-                  )}
-                </>
-              )}
-            </NavLink>
-          ))}
-        </nav>
+        <div className="flex items-center gap-4 md:gap-5">
+          <nav aria-label="Primary" className="flex gap-4 md:gap-5">
+            {links.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                end={l.end}
+                className="relative font-mono text-[0.68rem] uppercase tracking-[0.1em] text-ink-muted transition-colors hover:text-ink md:text-[0.74rem]"
+              >
+                {({ isActive }) => (
+                  <>
+                    <span className={isActive ? "text-ink" : ""}>{l.label}</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute -bottom-[6px] left-0 right-0 h-[2px] bg-accent"
+                      />
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

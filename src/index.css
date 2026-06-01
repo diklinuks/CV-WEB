@@ -33,9 +33,24 @@
   --accent-soft: #f3e7df;
 }
 
-/* ===== Design tokens — dark (warm near-black) ===== */
+/* ===== Design tokens — dark (warm near-black) =====
+   Applied when: the user explicitly chose dark (data-theme="dark"),
+   OR the OS prefers dark and the user hasn't forced light. */
+:root[data-theme="dark"] {
+  --bg: #15120d;
+  --bg-elevated: #1e1a14;
+  --bg-sunken: #100e0a;
+  --ink: #ede7da;
+  --ink-soft: #c2baa9;
+  --ink-muted: #8e8474;
+  --line: #2c2619;
+  --line-strong: #3a3324;
+  --accent: #e07c4e;
+  --accent-ink: #ee8c5e;
+  --accent-soft: #2a2017;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #15120d;
     --bg-elevated: #1e1a14;
     --bg-sunken: #100e0a;
