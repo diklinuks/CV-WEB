@@ -1,98 +1,112 @@
-# Tymur Abdurakhmanov — Portfolio
+# Tymur Abdurakhmanov — Portfolio (React)
 
-Personal portfolio website. Multi-page, hand-written HTML + CSS, hosted on
-GitHub Pages. No framework, no build step. One tiny JS file (for click-to-load
-demo embeds). No tracking.
+Personal portfolio. **React + Vite + Tailwind + Framer Motion.** Multi-page,
+animated, deployed to GitHub Pages.
 
 Design: "technical editorial" — Instrument Serif display headlines, monospace
 labels, numbered sections, ledger-style project rows, warm paper/ink palette
-with auto dark mode.
+with auto dark mode, and Framer Motion page transitions.
 
 ## Live URL
 
   https://diklinuks.github.io/CV-WEB/
 
-For the cleaner apex `https://diklinuks.github.io`, rename this repo to
-`diklinuks.github.io`. (If you do, fix the absolute `/CV-WEB/...` paths in
-`404.html`, `robots.txt`, and `sitemap.xml`.)
+## How deployment works (read this)
 
-## Site map
+The repo has two branches with different jobs:
 
-```
-/                              index.html        Home — hero + selected work + contact
-/cv.html                                          Full CV: summary, education, skills, languages
-/projects.html                                    All work (ledger index)
-/projects/betsy.html                              Betsy — autonomous procurement agent
-/projects/waste-detection.html                    Floating Waste Detection — LIVE in-browser demo
-/projects/airbnb-ml.html                          Airbnb Price Prediction — LIVE demo (map)
-/404.html                                         Custom 404
-```
+- **`main`** — the React **source code** (what you edit).
+- **`gh-pages`** — the **built site** (auto-generated, don't edit by hand).
 
-## Live demo embeds (click-to-load)
+GitHub Pages serves the `gh-pages` branch.
 
-Two project pages embed a real, running demo via an `<iframe>` — the recruiter
-uses the actual app without leaving the site. To keep the page fast, the demo
-only loads when they click "Load live demo" (`demo.js` handles this). An "Open
-fullscreen ↗" link is always present for mobile.
-
-Embedded demos:
-- `waste-detection.html` → https://diklinuks.github.io/waste-detector/#demo
-- `airbnb-ml.html`       → https://diklinuks.github.io/Airbnb-Machine-learning/web/#map-section
-
-Both are hosted on GitHub Pages and send no frame-blocking headers, so they
-embed cleanly. To embed a new demo, copy the `<div class="demo" data-demo="URL"
-data-title="...">` block from either page.
-
-## Enable GitHub Pages (one-time)
+### One-time setup (do this once in the GitHub UI)
 
 1. Repo → **Settings → Pages**
 2. **Source:** Deploy from a branch
-3. **Branch:** `main` / `(root)` → Save
+3. **Branch:** `gh-pages` / `(root)` → Save
 
-## What still needs your input
+### Every time you change something
 
-Search the HTML for `REPLACE` to find every spot. Priority:
+```bash
+npm install      # first time only
+npm run dev      # local preview at http://localhost:5173/CV-WEB/
+npm run deploy   # builds and publishes to gh-pages → live in ~1 min
+```
 
-- [ ] Drop `cv.pdf` in the repo root (the CV "Download PDF" button links to it)
-- [ ] Drop `assets/profile.jpg` and uncomment the `<img>` in `cv.html`
-- [ ] Rewrite the Summary / About in your own voice
-- [ ] Confirm your real Dutch level + LinkedIn slug (currently guesses)
-- [ ] Fill in the "What surprised me" sections on the two ML project pages
-- [ ] Confirm the Airbnb project framing (target variable, dataset, metric)
-- [ ] If `Betsy-Obsidian` goes public, uncomment its "Design docs" link on `betsy.html`
+Then commit your source changes to main:
 
-## Adding a new project (~5 min)
+```bash
+git add -A && git commit -m "..." && git push origin main
+```
 
-1. Copy `projects/waste-detection.html` (has a demo) or `projects/betsy.html`
-   (no demo) to `projects/<slug>.html`. Edit title, meta, body, links.
-2. Add a `<a class="row">` block to the ledger in `projects.html`.
-3. (Optional) Add the same row to the "Selected work" ledger in `index.html`.
-4. Commit and push.
+## Editing content
 
-## Fonts
+| What | Where |
+| --- | --- |
+| Projects (add/edit/reorder) | `src/data/projects.js` — single source of truth |
+| Hero text, name, headline | `src/components/Hero.jsx` |
+| CV (summary, education, skills, languages) | `src/pages/CV.jsx` |
+| Contact links | `src/pages/Home.jsx` → `ContactList` |
+| Colors / fonts | `src/index.css` (CSS variables) + `tailwind.config.js` |
+| Nav / footer | `src/components/Nav.jsx`, `src/components/Footer.jsx` |
 
-One self-hosted display font, **Instrument Serif** (regular + italic), in
-`assets/fonts/` (~41KB total, headlines only). Body text uses the system sans
-stack; labels use the system mono stack — no downloads for those. If the font
-files are missing, headlines fall back to a system serif automatically.
+### Add a new project (≈2 min)
 
-## Custom domain
+Append one object to the `projects` array in `src/data/projects.js`. It
+automatically appears on the homepage, the Work index, and gets its own
+`/projects/<slug>` page with optional live-demo embed. Fields:
 
-1. Add a `CNAME` file in the repo root with just your domain.
-2. Registrar DNS → GitHub Pages: apex `A` records `185.199.108.153`,
-   `.109.153`, `.110.153`, `.111.153`; or `CNAME` `www` → `diklinuks.github.io`.
-3. **Settings → Pages** → set custom domain → enable HTTPS.
+```js
+{
+  slug: "my-project",
+  name: "My Project",
+  tagline: "One line.",
+  lead: "2-3 sentence intro shown at the top of the page.",
+  tags: ["Python", "PyTorch"],
+  repo: "https://github.com/diklinuks/my-project",  // or null
+  demo: "https://.../#demo",                          // or null — embeds live
+  demoLabel: "diklinuks.github.io/my-project",
+  sections: [
+    { type: "h", text: "Heading" },
+    { type: "p", text: "Paragraph." },
+    { type: "ul", items: ["a", "b"] },
+    { type: "code", text: "console.log('hi')" },
+  ],
+}
+```
 
-## Performance
+## Live demo embeds
 
-- First page (HTML + CSS + 1 font): well under 100KB
-- Demos load only on click — they never slow the initial page
-- Dark mode via `prefers-color-scheme`; smooth page transitions via the
-  View Transitions API (Chrome/Edge/Safari; Firefox falls back to instant nav)
-- Accessible: semantic HTML, skip links, focus rings, AA contrast,
-  respects `prefers-reduced-motion`
+Set a project's `demo` field to any URL. The project page renders a
+click-to-load `<iframe>` — the demo only loads when the visitor clicks, so the
+page stays fast. Currently embedded:
+
+- Floating Waste Detection → `https://diklinuks.github.io/waste-detector/#demo`
+- Airbnb Price Prediction → `https://diklinuks.github.io/Airbnb-Machine-learning/web/#map-section`
+
+## Still needs your input (search `REPLACE` in `src/`)
+
+- [ ] Drop `cv.pdf` in `public/` (CV "Download PDF" button → `/CV-WEB/cv.pdf`)
+- [ ] Drop `public/assets/profile.jpg` and swap the `TA` placeholder in `src/pages/CV.jsx`
+- [ ] Rewrite the Summary in your own voice
+- [ ] Confirm Dutch level + LinkedIn slug (currently guesses)
+- [ ] Fill the "What surprised me" sections + the Airbnb framing in `src/data/projects.js`
+
+## Routing on GitHub Pages
+
+Uses `BrowserRouter` with `basename="/CV-WEB"`. The build copies `index.html`
+to `404.html` so deep links (e.g. `/CV-WEB/projects/betsy`) load the app
+instead of a hard 404. If you rename the repo to `diklinuks.github.io`, change
+`base` in `vite.config.js` and `basename` in `src/main.jsx` to `/`.
+
+## Tech
+
+- React 18, Vite 5, Tailwind 3, Framer Motion 11, React Router 6
+- Self-hosted Instrument Serif (display); system sans + mono otherwise
+- Auto dark mode via `prefers-color-scheme`
+- ~100KB gzipped JS, accessible, mobile-first
 
 ## License
 
-Code: MIT. Content (text, CV, project write-ups, identity): not licensed —
-please don't reuse it as your own portfolio.
+Code: MIT. Content (text, CV, project write-ups, identity): not licensed.
