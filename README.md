@@ -1,160 +1,98 @@
 # Tymur Abdurakhmanov — Portfolio
 
-Personal portfolio website. Multi-page, hand-written HTML and CSS,
-hosted on GitHub Pages. No framework, no build step, no JavaScript,
-no tracking.
+Personal portfolio website. Multi-page, hand-written HTML + CSS, hosted on
+GitHub Pages. No framework, no build step. One tiny JS file (for click-to-load
+demo embeds). No tracking.
+
+Design: "technical editorial" — Instrument Serif display headlines, monospace
+labels, numbered sections, ledger-style project rows, warm paper/ink palette
+with auto dark mode.
 
 ## Live URL
 
-After enabling GitHub Pages, the site publishes at:
-
   https://diklinuks.github.io/CV-WEB/
 
-For the cleaner apex URL `https://diklinuks.github.io`, rename this
-repo to `diklinuks.github.io`. For a custom domain, see "Custom
-domain" at the bottom.
+For the cleaner apex `https://diklinuks.github.io`, rename this repo to
+`diklinuks.github.io`. (If you do, fix the absolute `/CV-WEB/...` paths in
+`404.html`, `robots.txt`, and `sitemap.xml`.)
 
 ## Site map
 
 ```
-/                          (index.html)       Main landing — short, points outward
-/cv.html                                       Full CV: summary, education, skills, languages
-/projects.html                                 Index of all projects
-/projects/betsy.html                           Betsy detail page
-/projects/floating-waste.html                  Floating Waste detail page
-/404.html                                      Custom 404
+/                              index.html        Home — hero + selected work + contact
+/cv.html                                          Full CV: summary, education, skills, languages
+/projects.html                                    All work (ledger index)
+/projects/betsy.html                              Betsy — autonomous procurement agent
+/projects/waste-detection.html                    Floating Waste Detection — LIVE in-browser demo
+/projects/airbnb-ml.html                          Airbnb Price Prediction — LIVE demo (map)
+/404.html                                         Custom 404
 ```
+
+## Live demo embeds (click-to-load)
+
+Two project pages embed a real, running demo via an `<iframe>` — the recruiter
+uses the actual app without leaving the site. To keep the page fast, the demo
+only loads when they click "Load live demo" (`demo.js` handles this). An "Open
+fullscreen ↗" link is always present for mobile.
+
+Embedded demos:
+- `waste-detection.html` → https://diklinuks.github.io/waste-detector/#demo
+- `airbnb-ml.html`       → https://diklinuks.github.io/Airbnb-Machine-learning/web/#map-section
+
+Both are hosted on GitHub Pages and send no frame-blocking headers, so they
+embed cleanly. To embed a new demo, copy the `<div class="demo" data-demo="URL"
+data-title="...">` block from either page.
 
 ## Enable GitHub Pages (one-time)
 
-1. Open this repo on GitHub.
-2. **Settings → Pages**.
-3. Under **Build and deployment**:
-   - **Source:** Deploy from a branch
-   - **Branch:** `main` / `(root)`
-4. Save. GitHub publishes within ~1 minute.
+1. Repo → **Settings → Pages**
+2. **Source:** Deploy from a branch
+3. **Branch:** `main` / `(root)` → Save
 
-## What needs to happen before this site is "done"
+## What still needs your input
 
-The HTML files have `<!-- REPLACE: -->` comments wherever real content
-needs to drop in. Search across files for `REPLACE` to find every spot.
-Quick wins:
+Search the HTML for `REPLACE` to find every spot. Priority:
 
-- [ ] Drop `cv.pdf` in the repo root (the "Download PDF" button on /cv.html links to it)
-- [ ] Drop `assets/profile.jpg` (square, ~400×400, < 50KB). Then uncomment the `<img>` tag in `cv.html`.
-- [ ] Rewrite the About/Summary in your own voice (currently a draft)
-- [ ] Confirm your real Dutch level on `cv.html` (currently a guess)
-- [ ] Confirm your real LinkedIn URL slug everywhere (currently a guess: `/in/diklinuks/`)
-- [ ] Add real content to `/projects/floating-waste.html` — it's currently mostly placeholder text
-- [ ] Add the Floating Waste GitHub repo URL when ready
-- [ ] If `Betsy-Obsidian` becomes public, uncomment the "Design docs" link on `/projects/betsy.html`
+- [ ] Drop `cv.pdf` in the repo root (the CV "Download PDF" button links to it)
+- [ ] Drop `assets/profile.jpg` and uncomment the `<img>` in `cv.html`
+- [ ] Rewrite the Summary / About in your own voice
+- [ ] Confirm your real Dutch level + LinkedIn slug (currently guesses)
+- [ ] Fill in the "What surprised me" sections on the two ML project pages
+- [ ] Confirm the Airbnb project framing (target variable, dataset, metric)
+- [ ] If `Betsy-Obsidian` goes public, uncomment its "Design docs" link on `betsy.html`
 
-## Adding a new project
+## Adding a new project (~5 min)
 
-The site is set up so this takes about 5 minutes.
-
-1. **Create a detail page.** Copy `/projects/floating-waste.html` to
-   `/projects/your-project-slug.html` and edit:
-   - `<title>` and meta tags
-   - The page head (breadcrumb, title, sub)
-   - Tech tags
-   - The article body
-   - The repo link button
-
-2. **Add a card to the index.** Open `/projects.html`, find the
-   `<!-- NEW PROJECT TEMPLATE -->` comment, copy the block above it,
-   paste a new `<li>` with the right name, tagline, tags, and href.
-
-3. **(Optional) Add a card to the homepage teaser.** Open
-   `/index.html`, find the `<ul class="project-cards">` block in the
-   "Currently building" section, add a new `<li>` if you want this
-   project featured on the landing page.
-
+1. Copy `projects/waste-detection.html` (has a demo) or `projects/betsy.html`
+   (no demo) to `projects/<slug>.html`. Edit title, meta, body, links.
+2. Add a `<a class="row">` block to the ledger in `projects.html`.
+3. (Optional) Add the same row to the "Selected work" ledger in `index.html`.
 4. Commit and push.
 
-## Updating other content
+## Fonts
 
-| Want to change                | Where                                                    |
-| ----------------------------- | -------------------------------------------------------- |
-| Name, headline, availability  | `index.html` → `<section class="hero">`                  |
-| Featured projects on homepage | `index.html` → `<section ... aria-labelledby="featured-title">` |
-| CV summary text               | `cv.html` → `<section ... aria-labelledby="summary-label">` |
-| Education entries             | `cv.html` → `<section ... aria-labelledby="edu-label">`  |
-| Skills                        | `cv.html` AND `index.html`                               |
-| Languages spoken              | `cv.html` → `<section ... aria-labelledby="lang-label">` |
-| Contact links                 | `index.html` AND `cv.html` (both have a contacts list)   |
-| Site nav                      | `<nav class="site-nav">` block in every HTML file (manual sync — no templating without a build) |
-
-## Assets
-
-Drop files in `assets/`:
-
-| Path                          | What                                                   |
-| ----------------------------- | ------------------------------------------------------ |
-| `cv.pdf` (repo root)          | Your CV. Linked from the "Download PDF" button.        |
-| `assets/profile.jpg`          | Square photo (~400×400, < 50KB, WebP preferred)        |
-| `assets/floating-waste.png`   | Optional Floating Waste thumbnail                      |
-
-Optimize images before committing — aim for < 50KB each.
-
-## Page transitions
-
-The site uses the modern **View Transitions API** for smooth fades
-between pages. One CSS rule does it all:
-
-```css
-@view-transition { navigation: auto; }
-```
-
-Supported in Chrome 126+, Edge 126+, Safari 18.2+. Firefox falls back
-to instant navigation — no error, no broken state, just no animation.
-This is intentional progressive enhancement: the site works for
-everyone, looks slick for most.
+One self-hosted display font, **Instrument Serif** (regular + italic), in
+`assets/fonts/` (~41KB total, headlines only). Body text uses the system sans
+stack; labels use the system mono stack — no downloads for those. If the font
+files are missing, headlines fall back to a system serif automatically.
 
 ## Custom domain
 
-Once you own a domain (e.g., `tymurabdurakhmanov.com`):
+1. Add a `CNAME` file in the repo root with just your domain.
+2. Registrar DNS → GitHub Pages: apex `A` records `185.199.108.153`,
+   `.109.153`, `.110.153`, `.111.153`; or `CNAME` `www` → `diklinuks.github.io`.
+3. **Settings → Pages** → set custom domain → enable HTTPS.
 
-1. Create a `CNAME` file in the repo root containing only your domain
-   (no `http://`, no trailing slash). Commit and push.
-2. At your domain registrar, add DNS records pointing to GitHub Pages:
-   - `A` records on the apex: `185.199.108.153`, `185.199.109.153`,
-     `185.199.110.153`, `185.199.111.153`
-   - `CNAME` from `www`: `diklinuks.github.io`
-3. In **Settings → Pages**, set the custom domain and enable HTTPS.
+## Performance
 
-All asset paths in the site are relative, so the same code works at
-`diklinuks.github.io/CV-WEB/` and at your custom domain — no code
-changes needed.
-
-**Note on `404.html`:** the 404 uses absolute paths (`/CV-WEB/...`)
-because GitHub Pages serves it from the domain root when a path is
-not found. If you switch to a custom domain at the root (no subpath),
-update those `/CV-WEB/` references to `/`.
-
-## Performance budget
-
-- Each page weight (HTML+CSS): < 30 KB
-- Initial render: < 1s on 4G
-- Lighthouse Performance: ≥ 95
-- Lighthouse Accessibility: 100
-- Shared CSS file is cached after the first page load
-
-## Tech notes
-
-- **No framework.** No build step. No JavaScript at all in V1.
-- **Multi-page architecture.** Each section is its own `.html` file.
-  Shared `style.css` linked from every page.
-- **Page transitions** via the View Transitions API (CSS only).
-- **Dark mode** via `prefers-color-scheme` — follows OS setting.
-- **System font stack** — no web font download.
-- **Smooth scrolling** via CSS only.
-- **Sticky header** with backdrop blur.
-- **Accessible:** semantic HTML, skip links on every page, focus
-  styles, AA contrast, respects `prefers-reduced-motion`.
+- First page (HTML + CSS + 1 font): well under 100KB
+- Demos load only on click — they never slow the initial page
+- Dark mode via `prefers-color-scheme`; smooth page transitions via the
+  View Transitions API (Chrome/Edge/Safari; Firefox falls back to instant nav)
+- Accessible: semantic HTML, skip links, focus rings, AA contrast,
+  respects `prefers-reduced-motion`
 
 ## License
 
-Code in this repository is MIT-licensed (do what you want with it).
-The content (text, project descriptions, CV, identity) is not —
-please don't lift it as your own portfolio.
+Code: MIT. Content (text, CV, project write-ups, identity): not licensed —
+please don't reuse it as your own portfolio.

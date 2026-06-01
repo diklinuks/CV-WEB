@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15120d" media="(prefers-color-scheme: dark)">
+
+  <title>Floating Waste Detection — Tymur Abdurakhmanov</title>
+  <meta name="description" content="Computer-vision model that detects floating waste in surface water, running live in the browser. PyTorch, YOLO, OpenCV.">
+
+  <meta property="og:title" content="Floating Waste Detection">
+  <meta property="og:description" content="Computer-vision model that detects floating waste in surface water — live in-browser demo.">
+  <meta property="og:type" content="article">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="../" class="nav__brand">Tymur Abdurakhmanov</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="../">Index</a>
+        <a href="../cv.html">CV</a>
+        <a href="../projects.html" aria-current="page">Work</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main id="main">
+
+      <section class="page-head">
+        <p class="crumb mono-label">
+          <a href="../">Index</a><span>/</span><a href="../projects.html">Work</a><span>/</span>Floating Waste Detection
+        </p>
+        <h1 class="page-title">Floating Waste <em>Detection</em></h1>
+        <p class="page-lead">
+          A computer-vision model that detects floating waste in surface water
+          from drone and camera footage — running live, in your browser.
+        </p>
+      </section>
+
+      <ul class="tags" role="list">
+        <li>Python</li><li>PyTorch</li><li>YOLO</li><li>OpenCV</li><li>In-browser inference</li>
+      </ul>
+
+      <!-- ===== LIVE DEMO (click-to-load) ===== -->
+      <div class="demo" data-demo="https://diklinuks.github.io/waste-detector/#demo" data-title="Floating Waste Detection — live demo">
+        <div class="demo__bar">
+          <span class="demo__url">diklinuks.github.io/waste-detector</span>
+          <a class="demo__pop" href="https://diklinuks.github.io/waste-detector/#demo" target="_blank" rel="noopener">Open fullscreen ↗</a>
+        </div>
+        <div class="demo__frame">
+          <button class="demo__load" type="button">
+            <span class="play" aria-hidden="true">▶</span>
+            <b>Load live demo</b>
+            <small>Runs in your browser · model downloads on start</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="detail-links">
+        <a href="https://github.com/diklinuks/waste-detector" target="_blank" rel="noopener" class="btn btn--primary">Code on GitHub ↗</a>
+      </div>
+
+      <article class="prose">
+        <h3>What it does</h3>
+        <p>
+          An object-detection model from the YOLO family identifies floating
+          waste — bottles, plastic fragments, larger debris — in images of
+          surface water. The whole thing runs client-side: the demo above loads
+          the model into your browser and runs inference locally, with no server
+          involved.
+        </p>
+
+        <h3>How the demo works</h3>
+        <p>
+          The trained model is exported to a web-friendly format and loaded in
+          the browser. You give it an image, it runs a forward pass on your
+          machine, and draws bounding boxes around detected waste with
+          confidence scores. Nothing is uploaded — the inference happens locally.
+        </p>
+
+        <h3>Technical choices</h3>
+        <p>
+          YOLO over two-stage detectors because inference speed matters for
+          footage, and the accuracy trade-off is small for this task. Training
+          used augmentation for lighting and water-reflection variation, since
+          real footage spans bright midday water, overcast afternoons, and
+          glare — the cases that break models trained only on clean data.
+        </p>
+
+        <h3>What surprised me</h3>
+        <p>
+          <!-- REPLACE: one concrete thing you learned building this. Recruiters
+               at Booking/Adyen test for engineers who can articulate what they
+               actually learned. Be specific — a dataset gotcha, a reflection
+               false-positive problem, an export quirk getting it into the browser. -->
+          Write the one specific thing here that you didn't expect — a dataset
+          issue, a class of false positives, or a gotcha exporting the model to
+          run in the browser.
+        </p>
+
+        <h3>What's next</h3>
+        <p>
+          Better performance on low-light and reflective water, faster
+          in-browser inference, and an evaluation set drawn from real
+          partner-organisation footage rather than curated data.
+        </p>
+      </article>
+
+      <p style="margin-top: var(--s12);"><a href="../projects.html">← Back to all work</a></p>
+
+    </main>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__row">
+        <a href="../">Index</a><a href="../cv.html">CV</a>
+        <a href="../projects.html">Work</a>
+        <a href="mailto:abdurakhmanovtimur472@gmail.com">Contact</a>
+      </div>
+      <p class="foot__note">© 2026 Tymur Abdurakhmanov</p>
+    </div>
+  </footer>
+
+  <script src="../demo.js" defer></script>
+</body>
+</html>

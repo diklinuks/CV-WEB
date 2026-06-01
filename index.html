@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15120d" media="(prefers-color-scheme: dark)">
 
   <title>Tymur Abdurakhmanov — AI &amp; Machine Learning</title>
   <meta name="description" content="AI & Machine Learning student at Fontys, Eindhoven. Focused on Generative AI. Available for internships starting September 2026 in the Netherlands.">
@@ -20,154 +20,163 @@
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <header class="site-header">
-    <nav class="site-nav" aria-label="Primary">
-      <a href="./" class="site-nav__brand">Tymur Abdurakhmanov</a>
-      <ul class="site-nav__list" role="list">
-        <li><a href="./" aria-current="page">Home</a></li>
-        <li><a href="./cv.html">CV</a></li>
-        <li><a href="./projects.html">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="./" class="nav__brand">Tymur Abdurakhmanov</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="./" aria-current="page">Index</a>
+        <a href="./cv.html">CV</a>
+        <a href="./projects.html">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main id="main">
+  <div class="wrap">
+    <main id="main">
 
-    <!-- ========================================================== -->
-    <!-- HERO                                                       -->
-    <!-- ========================================================== -->
-    <section class="hero" aria-labelledby="hero-title">
-      <p class="hero__eligibility">
-        Nuffic-eligible · Available September 2026 · Eindhoven, NL
-      </p>
-      <h1 id="hero-title" class="hero__title">
-        AI &amp; Machine Learning student at Fontys, focused on Generative AI.
-      </h1>
-      <p class="hero__sub">
-        I build LLM agents, RAG systems, and computer-vision pipelines.
-        Looking for a September 2026 internship in the Netherlands.
-      </p>
-      <div class="hero__actions">
-        <a href="./projects.html" class="btn btn--primary">See my work</a>
-        <a href="./cv.html" class="btn">Read CV</a>
-        <a href="#contact" class="btn">Get in touch</a>
-      </div>
-    </section>
-
-    <!-- ========================================================== -->
-    <!-- FEATURED WORK (teaser, full list lives on /projects.html)  -->
-    <!-- ========================================================== -->
-    <section class="section" aria-labelledby="featured-title">
-      <h2 id="featured-title" class="section__title">Currently building</h2>
-
-      <ul class="project-cards" role="list">
-
-        <!-- Betsy card -->
-        <li>
-          <a href="./projects/betsy.html" class="project-card">
-            <h3 class="project-card__name">Betsy</h3>
-            <p class="project-card__tagline">
-              Autonomous procurement agent. Single-agent ReAct system
-              with LangGraph + MCP + Gemini, running a 90-day
-              simulation with human-in-the-loop approval.
-            </p>
-            <ul class="project-card__tags" role="list">
-              <li>LangGraph</li>
-              <li>MCP</li>
-              <li>Gemini</li>
-              <li>pgvector</li>
-            </ul>
-            <span class="project-card__more">Read more →</span>
-          </a>
-        </li>
-
-        <!-- Floating Waste card -->
-        <li>
-          <a href="./projects/floating-waste.html" class="project-card">
-            <h3 class="project-card__name">Floating Waste Detection</h3>
-            <p class="project-card__tagline">
-              Computer-vision pipeline that identifies floating waste
-              in surface water from drone footage.
-            </p>
-            <ul class="project-card__tags" role="list">
-              <li>PyTorch</li>
-              <li>YOLO</li>
-              <li>OpenCV</li>
-            </ul>
-            <span class="project-card__more">Read more →</span>
-          </a>
-        </li>
-
-      </ul>
-
-      <p style="margin-top: var(--space-6); font-size: 0.95rem;">
-        <a href="./projects.html">See all projects →</a>
-      </p>
-    </section>
-
-    <!-- ========================================================== -->
-    <!-- ABOUT (short — full bio lives on /cv.html)                 -->
-    <!-- ========================================================== -->
-    <section class="section" aria-labelledby="about-title">
-      <h2 id="about-title" class="section__title">About</h2>
-      <div class="prose">
-        <p>
-          I study Artificial Intelligence and Machine Learning at Fontys
-          University of Applied Sciences in Eindhoven. My focus is
-          generative AI — LLM agents, retrieval-augmented systems, and
-          the engineering around them.
+      <!-- ===== HERO ===== -->
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="hero__kicker mono-label">Nuffic-eligible · Available Sept 2026 · Eindhoven, NL</p>
+        <h1 id="hero-title" class="display">
+          AI &amp; Machine Learning student, focused on <em>generative AI</em>.
+        </h1>
+        <p class="hero__sub">
+          I build LLM agents, RAG systems, and computer-vision pipelines.
+          Looking for a September 2026 internship in the Netherlands.
         </p>
-        <p>
-          For the full picture see <a href="./cv.html">my CV</a>, or
-          jump straight to <a href="./projects.html">what I'm
-          building</a>.
-        </p>
+        <div class="hero__actions">
+          <a href="./projects.html" class="btn btn--primary">See the work →</a>
+          <a href="./cv.html" class="btn">Read CV</a>
+          <a href="#contact" class="btn">Get in touch</a>
+        </div>
+      </section>
+
+      <!-- ===== WORK (teaser) ===== -->
+      <section class="block" aria-labelledby="work-title">
+        <div class="block__index">
+          <span class="block__num">01</span>
+          <span class="block__label" id="work-title">Selected work</span>
+        </div>
+        <div class="block__body">
+          <div class="ledger">
+
+            <a class="row" href="./projects/betsy.html">
+              <span class="row__num">01</span>
+              <span class="row__main">
+                <span class="row__name">Betsy</span>
+                <span class="row__desc">
+                  Autonomous procurement agent. Single-agent ReAct system
+                  with LangGraph, MCP tools, and Gemini, running a 90-day
+                  simulation with human-in-the-loop approval.
+                </span>
+                <ul class="row__tags" role="list">
+                  <li>LangGraph</li><li>MCP</li><li>Gemini</li><li>pgvector</li>
+                </ul>
+              </span>
+              <span class="row__arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a class="row" href="./projects/waste-detection.html">
+              <span class="row__num">02</span>
+              <span class="row__main">
+                <span class="row__name">Floating Waste Detection</span>
+                <span class="row__desc">
+                  Computer-vision model that finds floating waste in water,
+                  running live in your browser. Try it on the project page.
+                </span>
+                <ul class="row__tags" role="list">
+                  <li>PyTorch</li><li>YOLO</li><li>OpenCV</li><li>Live demo</li>
+                </ul>
+              </span>
+              <span class="row__arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a class="row" href="./projects/airbnb-ml.html">
+              <span class="row__num">03</span>
+              <span class="row__main">
+                <span class="row__name">Airbnb Price Prediction</span>
+                <span class="row__desc">
+                  Machine-learning model predicting short-stay listing prices,
+                  with an interactive map. Live demo on the project page.
+                </span>
+                <ul class="row__tags" role="list">
+                  <li>scikit-learn</li><li>Pandas</li><li>Leaflet</li><li>Live demo</li>
+                </ul>
+              </span>
+              <span class="row__arrow" aria-hidden="true">→</span>
+            </a>
+
+          </div>
+          <p style="margin-top: var(--s6);"><a href="./projects.html">All projects →</a></p>
+        </div>
+      </section>
+
+      <!-- ===== ABOUT (short) ===== -->
+      <section class="block" aria-labelledby="about-title">
+        <div class="block__index">
+          <span class="block__num">02</span>
+          <span class="block__label" id="about-title">About</span>
+        </div>
+        <div class="block__body">
+          <div class="prose">
+            <p>
+              I study Artificial Intelligence and Machine Learning at Fontys
+              University of Applied Sciences in Eindhoven. My focus is
+              generative AI — LLM agents, retrieval-augmented systems, and the
+              engineering around them.
+            </p>
+            <p>
+              For the full picture see <a href="./cv.html">my CV</a>, or jump
+              straight to <a href="./projects.html">what I'm building</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== CONTACT ===== -->
+      <section class="block" id="contact" aria-labelledby="contact-title">
+        <div class="block__index">
+          <span class="block__num">03</span>
+          <span class="block__label" id="contact-title">Contact</span>
+        </div>
+        <div class="block__body">
+          <div class="contacts">
+            <a href="mailto:abdurakhmanovtimur472@gmail.com">
+              <span class="contacts__label">Email</span>
+              <span class="contacts__value">abdurakhmanovtimur472@gmail.com</span>
+              <span class="contacts__arrow" aria-hidden="true">↗</span>
+            </a>
+            <!-- REPLACE: 'diklinuks' LinkedIn slug is a guess. -->
+            <a href="https://www.linkedin.com/in/diklinuks/" target="_blank" rel="noopener">
+              <span class="contacts__label">LinkedIn</span>
+              <span class="contacts__value">/in/diklinuks</span>
+              <span class="contacts__arrow" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://github.com/diklinuks" target="_blank" rel="noopener">
+              <span class="contacts__label">GitHub</span>
+              <span class="contacts__value">@diklinuks</span>
+              <span class="contacts__arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__row">
+        <a href="./">Index</a><a href="./cv.html">CV</a>
+        <a href="./projects.html">Work</a>
+        <a href="mailto:abdurakhmanovtimur472@gmail.com">Contact</a>
       </div>
-    </section>
-
-    <!-- ========================================================== -->
-    <!-- CONTACT                                                    -->
-    <!-- ========================================================== -->
-    <section id="contact" class="section" aria-labelledby="contact-title">
-      <h2 id="contact-title" class="section__title">Contact</h2>
-      <ul class="contacts" role="list">
-        <li>
-          <a href="mailto:abdurakhmanovtimur472@gmail.com">
-            <span class="contacts__label">Email</span>
-            <span class="contacts__value">abdurakhmanovtimur472@gmail.com</span>
-          </a>
-        </li>
-        <li>
-          <!-- REPLACE: 'diklinuks' is a guess based on your GitHub handle. -->
-          <a href="https://www.linkedin.com/in/diklinuks/" target="_blank" rel="noopener">
-            <span class="contacts__label">LinkedIn</span>
-            <span class="contacts__value">/in/diklinuks</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/diklinuks" target="_blank" rel="noopener">
-            <span class="contacts__label">GitHub</span>
-            <span class="contacts__value">@diklinuks</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <p>© 2026 Tymur Abdurakhmanov.</p>
-    <p>
-      <a href="./">Home</a> ·
-      <a href="./cv.html">CV</a> ·
-      <a href="./projects.html">Projects</a> ·
-      <a href="mailto:abdurakhmanovtimur472@gmail.com">Contact</a>
-    </p>
-    <p>
-      Hand-written HTML &amp; CSS. No framework, no build step, no
-      tracking. View-source for proof.
-    </p>
+      <p class="foot__note">
+        © 2026 Tymur Abdurakhmanov · Hand-written HTML &amp; CSS, no framework,
+        no build step, no tracking · View source for proof
+      </p>
+    </div>
   </footer>
 </body>
 </html>

@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15120d" media="(prefers-color-scheme: dark)">
 
-  <title>Projects — Tymur Abdurakhmanov</title>
-  <meta name="description" content="Projects by Tymur Abdurakhmanov. Generative AI agents, computer vision pipelines, and more.">
+  <title>Work — Tymur Abdurakhmanov</title>
+  <meta name="description" content="Projects by Tymur Abdurakhmanov. Generative AI agents, computer vision, and machine learning — several with live in-browser demos.">
 
-  <meta property="og:title" content="Projects — Tymur Abdurakhmanov">
-  <meta property="og:description" content="Generative AI agents, computer vision pipelines, and more.">
+  <meta property="og:title" content="Work — Tymur Abdurakhmanov">
+  <meta property="og:description" content="Generative AI agents, computer vision, and machine learning — several with live demos.">
   <meta property="og:type" content="website">
 
   <link rel="stylesheet" href="./style.css">
@@ -19,125 +19,106 @@
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <header class="site-header">
-    <nav class="site-nav" aria-label="Primary">
-      <a href="./" class="site-nav__brand">Tymur Abdurakhmanov</a>
-      <ul class="site-nav__list" role="list">
-        <li><a href="./">Home</a></li>
-        <li><a href="./cv.html">CV</a></li>
-        <li><a href="./projects.html" aria-current="page">Projects</a></li>
-        <li><a href="./index.html#contact">Contact</a></li>
-      </ul>
-    </nav>
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="./" class="nav__brand">Tymur Abdurakhmanov</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="./">Index</a>
+        <a href="./cv.html">CV</a>
+        <a href="./projects.html" aria-current="page">Work</a>
+        <a href="./index.html#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main id="main" class="is-wide">
+  <div class="wrap">
+    <main id="main">
 
-    <!-- ========================================================== -->
-    <!-- PAGE HEAD                                                  -->
-    <!-- ========================================================== -->
-    <section class="page-head">
-      <p class="page-head__breadcrumb">
-        <a href="./">Home</a><span>/</span>Projects
-      </p>
-      <h1 class="page-head__title">Projects</h1>
-      <p class="page-head__sub">
-        Things I'm building or have shipped. Each card opens a page
-        with the full story, architecture, and links.
-      </p>
-    </section>
+      <section class="page-head">
+        <p class="crumb mono-label"><a href="./">Index</a><span>/</span>Work</p>
+        <h1 class="page-title">Selected <em>work</em></h1>
+        <p class="page-lead">
+          Things I'm building or have shipped. Each opens its own page with the
+          full story, the stack, links, and — where it exists — a live demo you
+          can run right here.
+        </p>
+      </section>
 
-    <!-- ========================================================== -->
-    <!-- PROJECT GRID                                               -->
-    <!-- To add a new project:                                      -->
-    <!--   1. Create a new HTML file under /projects/ (use one of   -->
-    <!--      the existing ones as a template).                     -->
-    <!--   2. Copy any <li> below and paste it inside the <ul>.     -->
-    <!--   3. Update name, tagline, tags, and the href.             -->
-    <!-- ========================================================== -->
-    <section style="padding-bottom: var(--space-16);">
-      <ul class="project-cards" role="list" style="grid-template-columns: 1fr; gap: var(--space-4);">
+      <!-- ===== LEDGER ===== -->
+      <!-- To add a project: create projects/<slug>.html, then copy a <a class="row"> block. -->
+      <section style="padding: var(--s8) 0 var(--s16);">
+        <div class="ledger">
 
-        <!-- Betsy -->
-        <li>
-          <a href="./projects/betsy.html" class="project-card">
-            <h2 class="project-card__name">Betsy</h2>
-            <p class="project-card__tagline">
-              Autonomous procurement agent for a small manufacturer.
-              Single-agent ReAct system that evaluates suppliers,
-              generates purchase orders, and learns from outcomes over
-              a 90-day simulation with human-in-the-loop approval.
-            </p>
-            <ul class="project-card__tags" role="list">
-              <li>LangGraph</li>
-              <li>MCP</li>
-              <li>Gemini 2.5 Flash</li>
-              <li>pgvector</li>
-              <li>FastAPI</li>
-              <li>Python 3.12</li>
-            </ul>
-            <span class="project-card__more">Read the full story →</span>
-          </a>
-        </li>
-
-        <!-- Floating Waste Detection -->
-        <li>
-          <a href="./projects/floating-waste.html" class="project-card">
-            <h2 class="project-card__name">Floating Waste Detection</h2>
-            <p class="project-card__tagline">
-              Computer-vision pipeline for spotting floating waste in
-              surface water from drone footage.
-            </p>
-            <ul class="project-card__tags" role="list">
-              <li>PyTorch</li>
-              <li>YOLO</li>
-              <li>OpenCV</li>
-              <li>Python</li>
-            </ul>
-            <span class="project-card__more">Read the full story →</span>
-          </a>
-        </li>
-
-        <!--
-          NEW PROJECT TEMPLATE — copy, paste, edit.
-
-          <li>
-            <a href="./projects/your-project-slug.html" class="project-card">
-              <h2 class="project-card__name">Project Name</h2>
-              <p class="project-card__tagline">
-                1-2 sentence tagline. What it does and why it's
-                interesting in the first 15 words.
-              </p>
-              <ul class="project-card__tags" role="list">
-                <li>Tech</li>
-                <li>Stack</li>
+          <a class="row" href="./projects/betsy.html">
+            <span class="row__num">01</span>
+            <span class="row__main">
+              <span class="row__name">Betsy</span>
+              <span class="row__desc">
+                Autonomous procurement agent for a small manufacturer. Evaluates
+                suppliers, generates purchase orders, and learns from outcomes
+                over a 90-day simulation with human-in-the-loop approval.
+              </span>
+              <ul class="row__tags" role="list">
+                <li>LangGraph</li><li>MCP</li><li>Gemini 2.5 Flash</li>
+                <li>pgvector</li><li>FastAPI</li>
               </ul>
-              <span class="project-card__more">Read the full story →</span>
-            </a>
-          </li>
-        -->
+            </span>
+            <span class="row__arrow" aria-hidden="true">→</span>
+          </a>
 
-      </ul>
+          <a class="row" href="./projects/waste-detection.html">
+            <span class="row__num">02</span>
+            <span class="row__main">
+              <span class="row__name">Floating Waste Detection</span>
+              <span class="row__desc">
+                Computer-vision model that detects floating waste in surface
+                water. Runs live in the browser — drag in an image and watch it
+                work.
+              </span>
+              <ul class="row__tags" role="list">
+                <li>PyTorch</li><li>YOLO</li><li>OpenCV</li><li>Live demo</li>
+              </ul>
+            </span>
+            <span class="row__arrow" aria-hidden="true">→</span>
+          </a>
 
-      <p class="callout">
-        <strong>More coming.</strong> First internship lands September
-        2026, and there are a few projects in progress (including some
-        I can't share publicly yet). Check back, or
-        <a href="./index.html#contact">get in touch</a> and I'll tell
-        you about them directly.
-      </p>
-    </section>
+          <a class="row" href="./projects/airbnb-ml.html">
+            <span class="row__num">03</span>
+            <span class="row__main">
+              <span class="row__name">Airbnb Price Prediction</span>
+              <span class="row__desc">
+                Machine-learning model that predicts short-stay listing prices,
+                paired with an interactive map. Live demo on the page.
+              </span>
+              <ul class="row__tags" role="list">
+                <li>scikit-learn</li><li>Pandas</li><li>Leaflet</li><li>Live demo</li>
+              </ul>
+            </span>
+            <span class="row__arrow" aria-hidden="true">→</span>
+          </a>
 
-  </main>
+        </div>
 
-  <footer class="site-footer">
-    <p>© 2026 Tymur Abdurakhmanov.</p>
-    <p>
-      <a href="./">Home</a> ·
-      <a href="./cv.html">CV</a> ·
-      <a href="./projects.html">Projects</a> ·
-      <a href="mailto:abdurakhmanovtimur472@gmail.com">Contact</a>
-    </p>
+        <p class="callout">
+          <strong>More on the way.</strong> First internship lands September
+          2026, and a few projects are in progress (some I can't share publicly
+          yet). <a href="./index.html#contact">Get in touch</a> and I'll walk
+          you through them.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__row">
+        <a href="./">Index</a><a href="./cv.html">CV</a>
+        <a href="./projects.html">Work</a>
+        <a href="mailto:abdurakhmanovtimur472@gmail.com">Contact</a>
+      </div>
+      <p class="foot__note">© 2026 Tymur Abdurakhmanov · Hand-written HTML &amp; CSS, no framework, no tracking</p>
+    </div>
   </footer>
 </body>
 </html>

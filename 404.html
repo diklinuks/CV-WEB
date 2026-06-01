@@ -3,45 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
-
+  <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15120d" media="(prefers-color-scheme: dark)">
   <title>Page not found — Tymur Abdurakhmanov</title>
   <meta name="robots" content="noindex">
-
   <link rel="stylesheet" href="/CV-WEB/style.css">
   <link rel="icon" href="/CV-WEB/favicon.svg" type="image/svg+xml">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <header class="site-header">
-    <nav class="site-nav" aria-label="Primary">
-      <a href="/CV-WEB/" class="site-nav__brand">Tymur Abdurakhmanov</a>
-      <ul class="site-nav__list" role="list">
-        <li><a href="/CV-WEB/">Home</a></li>
-        <li><a href="/CV-WEB/cv.html">CV</a></li>
-        <li><a href="/CV-WEB/projects.html">Projects</a></li>
-      </ul>
-    </nav>
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="/CV-WEB/" class="nav__brand">Tymur Abdurakhmanov</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="/CV-WEB/">Index</a>
+        <a href="/CV-WEB/cv.html">CV</a>
+        <a href="/CV-WEB/projects.html">Work</a>
+      </nav>
+    </div>
   </header>
 
-  <main id="main">
-    <section class="error-page">
-      <p class="error-page__code">404</p>
-      <h1 class="error-page__title">Page not found</h1>
-      <p class="error-page__sub">
-        The page you tried to open doesn't exist (or doesn't exist yet).
-      </p>
-      <p>
-        <a href="/CV-WEB/" class="btn btn--primary">Go home</a>
-        <a href="/CV-WEB/projects.html" class="btn">See projects</a>
-      </p>
-    </section>
-  </main>
+  <div class="wrap">
+    <main id="main">
+      <section class="err">
+        <p class="err__code">404</p>
+        <h1 class="err__title">Page not found</h1>
+        <p class="err__sub">That page doesn't exist — or doesn't exist yet.</p>
+        <div class="err__actions">
+          <a href="/CV-WEB/" class="btn btn--primary">Go to index</a>
+          <a href="/CV-WEB/projects.html" class="btn">See the work</a>
+        </div>
+      </section>
+    </main>
+  </div>
 
-  <footer class="site-footer">
-    <p>© 2026 Tymur Abdurakhmanov.</p>
+  <footer class="foot">
+    <div class="foot__inner">
+      <p class="foot__note">© 2026 Tymur Abdurakhmanov</p>
+    </div>
   </footer>
 </body>
 </html>
