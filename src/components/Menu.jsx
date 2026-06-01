@@ -77,10 +77,10 @@ export default function Menu() {
                       to={l.to}
                       className="group flex items-baseline gap-4 py-1 md:gap-8"
                     >
-                      <span className="font-mono text-sm text-accent-ink">{l.n}</span>
+                      <span className="font-mono text-sm text-ink-muted">{l.n}</span>
                       <span
-                        className={`font-sans text-[15vw] font-bold leading-[1.05] tracking-[-0.02em] transition-colors md:text-[8vw] ${
-                          pathname === l.to ? "grad-text" : "text-ink group-hover:grad-text"
+                        className={`font-sans text-[13vw] font-bold leading-[1.05] tracking-[-0.02em] transition-colors md:text-[7vw] ${
+                          pathname === l.to ? "text-ink" : "text-ink/40 group-hover:text-ink"
                         }`}
                       >
                         {l.label}

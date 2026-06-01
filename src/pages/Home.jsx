@@ -1,71 +1,69 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import ShaderBackground from "../components/ShaderBackground";
-
-// Landing = a hub. One screen, no scroll. Click a destination to go there.
-const nav = [
-  { to: "/projects", label: "Work", desc: "Agents, computer vision & ML — with live demos" },
-  { to: "/cv", label: "CV", desc: "Education, skills, the full picture" },
-  { to: "/contact", label: "Contact", desc: "Email, LinkedIn, GitHub" },
-];
+import { ArrowRight } from "lucide-react";
+import ShaderWave from "../components/ShaderWave";
 
 const wrap = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } } };
 const up = {
-  hidden: { opacity: 0, y: 22, filter: "blur(8px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export default function Home() {
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden bg-[#070708] text-white">
-      <ShaderBackground />
+    <section className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#0a0a0b] px-5 text-white">
+      {/* the one bit of colour: rainbow wave */}
+      <ShaderWave />
+      {/* gentle top vignette so the headline stays crisp over the glow */}
       <div
         className="pointer-events-none absolute inset-0 z-[1]"
-        style={{ background: "radial-gradient(130% 120% at 80% 10%, transparent 0%, rgba(7,7,8,0.6) 55%, rgba(7,7,8,0.94) 100%)" }}
+        style={{ background: "radial-gradient(120% 90% at 50% 25%, rgba(10,10,11,0.65) 0%, rgba(10,10,11,0.15) 45%, transparent 75%)" }}
       />
 
+      {/* thin framed card, centered */}
       <motion.div
         variants={wrap}
         initial="hidden"
         animate="show"
-        className="relative z-10 mx-auto w-full max-w-wide px-6 py-24 md:px-10"
+        className="relative z-10 w-full max-w-2xl rounded-2xl border border-white/15 bg-white/[0.015] px-6 py-16 text-center backdrop-blur-[2px] md:px-12 md:py-20"
       >
-        <motion.p variants={up} className="mb-5 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-white/70">
-          <span className="mr-2 inline-block h-2 w-2 translate-y-[1px] rounded-full" style={{ background: "linear-gradient(110deg,#7c5cff,#19e3ff,#ff5ca8)" }} />
-          Tymur Abdurakhmanov · AI &amp; ML · Eindhoven, NL
+        <motion.p variants={up} className="mb-6 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-white/55">
+          AI &amp; Machine Learning
         </motion.p>
 
         <motion.h1
           variants={up}
-          className="mb-10 max-w-[16ch] text-[clamp(2.6rem,9vw,6.5rem)] font-bold leading-[0.98] tracking-[-0.03em]"
+          className="mb-5 text-[clamp(2.1rem,6vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.03em] text-white"
         >
-          Building with{" "}
-          <span className="grad-text">generative AI</span>.
+          Tymur Abdurakhmanov
         </motion.h1>
 
-        {/* HUB: click to go */}
-        <nav className="border-t border-white/15">
-          {nav.map((item, i) => (
-            <motion.div key={item.to} variants={up}>
-              <Link
-                to={item.to}
-                className="cursor-grow group flex items-center justify-between gap-6 border-b border-white/15 py-5 transition-[padding] hover:pl-3"
-              >
-                <span className="flex items-baseline gap-4">
-                  <span className="font-mono text-xs text-white/40">0{i + 1}</span>
-                  <span className="text-[clamp(1.8rem,6vw,3.5rem)] font-bold leading-none tracking-[-0.02em] text-white transition-colors group-hover:grad-text">
-                    {item.label}
-                  </span>
-                </span>
-                <span className="hidden items-center gap-4 sm:flex">
-                  <span className="font-mono text-xs text-white/45">{item.desc}</span>
-                  <ArrowUpRight className="text-white/60 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" size={22} />
-                </span>
-              </Link>
-            </motion.div>
-          ))}
-        </nav>
+        <motion.p variants={up} className="mx-auto mb-9 max-w-[42ch] text-[1.02rem] leading-relaxed text-white/65">
+          Focused on generative AI — LLM agents, RAG systems, and computer-vision
+          pipelines. Two projects with live in-browser demos.
+        </motion.p>
+
+        <motion.div variants={up} className="mb-9 flex justify-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-1.5 font-mono text-[0.7rem] tracking-wide text-white/70">
+            <motion.span
+              animate={{ opacity: [1, 0.3, 1] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="inline-block h-1.5 w-1.5 rounded-full bg-white"
+            />
+            Available September 2026 · Eindhoven, NL
+          </span>
+        </motion.div>
+
+        <motion.div variants={up} className="flex justify-center">
+          <motion.span whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }} className="inline-block">
+            <Link
+              to="/projects"
+              className="cursor-grow inline-flex items-center gap-2 rounded-full border border-white/80 px-7 py-3 font-mono text-[0.82rem] tracking-wide text-white transition-colors hover:bg-white hover:text-[#0a0a0b]"
+            >
+              See my work <ArrowRight size={15} />
+            </Link>
+          </motion.span>
+        </motion.div>
       </motion.div>
     </section>
   );
