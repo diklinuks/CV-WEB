@@ -6,7 +6,7 @@ import { Btn } from "../components/primitives";
 import { Github, ArrowLeft } from "lucide-react";
 
 function Section({ s }) {
-  if (s.type === "h") return <h3 className="mt-6 font-serif text-[1.5rem] tracking-[-0.01em] text-ink">{s.text}</h3>;
+  if (s.type === "h") return <h3 className="mt-6 text-[1.4rem] font-bold tracking-[-0.02em] text-ink">{s.text}</h3>;
   if (s.type === "p") return <p className="max-w-[64ch] text-ink-soft">{s.text}</p>;
   if (s.type === "ul")
     return (
@@ -42,7 +42,7 @@ export default function ProjectDetail() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-4 font-serif text-[clamp(2rem,5.5vw,3.2rem)] leading-tight tracking-[-0.01em] text-ink"
+          className="mb-4 text-[clamp(2.4rem,7vw,4.2rem)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
         >
           {project.name}
         </motion.h1>

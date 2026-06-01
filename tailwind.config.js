@@ -18,8 +18,9 @@ export default {
         "accent-soft": "var(--accent-soft)",
       },
       fontFamily: {
-        serif: ["Instrument Serif", "Iowan Old Style", "Palatino", "Georgia", "serif"],
-        sans: ["ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        sans: ["Space Grotesk", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
+        display: ["Space Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["Space Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["ui-monospace", "SF Mono", "JetBrains Mono", "Menlo", "Consolas", "monospace"],
       },
       maxWidth: {

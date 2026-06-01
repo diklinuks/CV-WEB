@@ -14,9 +14,9 @@ export default function Projects() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-4 font-serif text-[clamp(2rem,5.5vw,3.4rem)] leading-tight tracking-[-0.01em] text-ink"
+          className="mb-4 text-[clamp(2.4rem,7vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
         >
-          Selected <em className="italic text-accent-ink">work</em>
+          Selected <span className="grad-text">work</span>
         </motion.h1>
         <p className="max-w-[54ch] text-[1.08rem] text-ink-soft">
           Things I'm building or have shipped. Each opens its own page with the

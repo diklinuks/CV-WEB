@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Block } from "../components/primitives";
-import { ContactList } from "./Home";
+import ContactList from "../components/ContactList";
 import { Download } from "lucide-react";
 
 const skills = {
@@ -19,14 +19,14 @@ export default function CV() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="grid h-24 w-24 place-items-center overflow-hidden rounded-md border border-line bg-sunken font-serif text-2xl text-ink-muted md:h-28 md:w-28"
+          className="grid h-24 w-24 place-items-center overflow-hidden rounded-2xl border border-line bg-sunken text-2xl font-bold text-ink-muted md:h-28 md:w-28"
         >
           {/* REPLACE: drop /public/assets/profile.jpg and swap the line below for:
               <img src="/CV-WEB/assets/profile.jpg" alt="Tymur Abdurakhmanov" className="h-full w-full object-cover" /> */}
           TA
         </motion.div>
         <div>
-          <h1 className="font-serif text-[2.2rem] leading-none tracking-[-0.01em] text-ink">Tymur Abdurakhmanov</h1>
+          <h1 className="text-[2.4rem] font-bold leading-none tracking-[-0.02em] text-ink">Tymur Abdurakhmanov</h1>
           <p className="mt-1 text-ink-soft">AI &amp; Machine Learning student · Focused on Generative AI</p>
           <p className="mt-2 font-mono text-[0.76rem] tracking-wide text-ink-muted">
             Eindhoven, NL · Nuffic-eligible · Available September 2026

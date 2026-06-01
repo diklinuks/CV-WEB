@@ -68,11 +68,11 @@ export default function ShaderBackground() {
               for(float i=0.0;i<35.0;i++){
                 v=p+cos(i*i+(iTime+p.x*0.08)*0.025+i*vec2(13.0,11.0))*3.5;
                 float tail=fbm(v+vec2(iTime*0.5,i))*0.3*(1.0-(i/35.0));
-                /* warm ember palette: high R, mid G, low B */
+                /* vibrant violet / cyan / pink spectrum */
                 vec4 col=vec4(
-                  0.62+0.38*sin(i*0.2+iTime*0.4),
-                  0.28+0.30*cos(i*0.3+iTime*0.5),
-                  0.10+0.12*sin(i*0.4+iTime*0.3),
+                  0.45+0.45*sin(i*0.25+iTime*0.40),
+                  0.28+0.42*sin(i*0.30+iTime*0.50+2.0),
+                  0.62+0.38*sin(i*0.20+iTime*0.30+4.0),
                   1.0);
                 vec4 c=col*exp(sin(i*i+iTime*0.8))/length(max(v,vec2(v.x*f*0.015,v.y*1.5)));
                 float thin=smoothstep(0.0,1.0,i/35.0)*0.6;

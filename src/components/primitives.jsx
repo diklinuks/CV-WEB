@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 // ===== Animated button (link, router-link, or plain button) =====
 const baseBtn =
-  "inline-flex items-center gap-2 rounded-md border px-5 py-3 font-mono text-[0.8rem] tracking-wide transition-colors";
+  "cursor-grow inline-flex items-center gap-2 rounded-full border px-6 py-3 font-mono text-[0.8rem] tracking-wide transition-colors";
 
 export function Btn({ to, href, variant = "default", children, className = "", ...rest }) {
   const styles =

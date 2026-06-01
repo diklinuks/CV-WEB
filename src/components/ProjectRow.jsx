@@ -18,7 +18,7 @@ export default function ProjectRow({ project, index }) {
       >
         <span className="font-mono text-[0.8rem] text-accent-ink">{num}</span>
         <span className="min-w-0">
-          <span className="mb-2 block font-serif text-[1.6rem] leading-tight text-ink">
+          <span className="mb-2 block text-[1.7rem] font-bold leading-tight tracking-[-0.02em] text-ink transition-colors group-hover:grad-text">
             {project.name}
           </span>
           <span className="block max-w-[60ch] text-[0.98rem] text-ink-soft">

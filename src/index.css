@@ -1,16 +1,9 @@
-/* ===== Self-hosted display font (Vite hashes these) ===== */
+/* ===== Display + body font: Space Grotesk (variable) ===== */
 @font-face {
-  font-family: "Instrument Serif";
-  src: url("./assets/fonts/instrument-serif-400.woff2") format("woff2");
-  font-weight: 400;
+  font-family: "Space Grotesk";
+  src: url("./assets/fonts/space-grotesk-var.woff2") format("woff2");
+  font-weight: 300 700;
   font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Instrument Serif";
-  src: url("./assets/fonts/instrument-serif-400-italic.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
   font-display: swap;
 }
 
@@ -18,57 +11,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== Design tokens — light (warm paper) ===== */
+/* ===== Tokens — DARK is the default (black / white / colorful) ===== */
 :root {
-  --bg: #f6f3ec;
-  --bg-elevated: #fffdf8;
-  --bg-sunken: #efeae0;
-  --ink: #1b1813;
-  --ink-soft: #46403a;
-  --ink-muted: #6b6357;
-  --line: #e2dccf;
-  --line-strong: #cdc4b2;
-  --accent: #b24420;
-  --accent-ink: #9a3a18;
-  --accent-soft: #f3e7df;
+  --bg: #070708;
+  --bg-elevated: #101013;
+  --bg-sunken: #0c0c0f;
+  --ink: #f4f4f6;
+  --ink-soft: #aeaeb6;
+  --ink-muted: #74747e;
+  --line: rgba(255, 255, 255, 0.10);
+  --line-strong: rgba(255, 255, 255, 0.22);
+  --accent: #7c5cff;
+  --accent-ink: #a38dff;
+  --accent-soft: rgba(124, 92, 255, 0.14);
+  --c1: #7c5cff; /* violet */
+  --c2: #19e3ff; /* cyan   */
+  --c3: #ff5ca8; /* pink   */
+  --grad: linear-gradient(110deg, #7c5cff 0%, #19e3ff 50%, #ff5ca8 100%);
 }
 
-/* ===== Design tokens — dark (warm near-black) =====
-   Applied when: the user explicitly chose dark (data-theme="dark"),
-   OR the OS prefers dark and the user hasn't forced light. */
-:root[data-theme="dark"] {
-  --bg: #15120d;
-  --bg-elevated: #1e1a14;
-  --bg-sunken: #100e0a;
-  --ink: #ede7da;
-  --ink-soft: #c2baa9;
-  --ink-muted: #8e8474;
-  --line: #2c2619;
-  --line-strong: #3a3324;
-  --accent: #e07c4e;
-  --accent-ink: #ee8c5e;
-  --accent-soft: #2a2017;
+/* Light, when the user forces it OR the OS prefers light and dark isn't forced */
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-elevated: #f5f5f7;
+  --bg-sunken: #ededf0;
+  --ink: #0a0a0c;
+  --ink-soft: #3c3c44;
+  --ink-muted: #74747e;
+  --line: rgba(0, 0, 0, 0.10);
+  --line-strong: rgba(0, 0, 0, 0.20);
+  --accent: #6a3cff;
+  --accent-ink: #5a2ee6;
+  --accent-soft: rgba(106, 60, 255, 0.10);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #15120d;
-    --bg-elevated: #1e1a14;
-    --bg-sunken: #100e0a;
-    --ink: #ede7da;
-    --ink-soft: #c2baa9;
-    --ink-muted: #8e8474;
-    --line: #2c2619;
-    --line-strong: #3a3324;
-    --accent: #e07c4e;
-    --accent-ink: #ee8c5e;
-    --accent-soft: #2a2017;
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #ffffff;
+    --bg-elevated: #f5f5f7;
+    --bg-sunken: #ededf0;
+    --ink: #0a0a0c;
+    --ink-soft: #3c3c44;
+    --ink-muted: #74747e;
+    --line: rgba(0, 0, 0, 0.10);
+    --line-strong: rgba(0, 0, 0, 0.20);
+    --accent: #6a3cff;
+    --accent-ink: #5a2ee6;
+    --accent-soft: rgba(106, 60, 255, 0.10);
   }
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--ink);
@@ -76,50 +69,48 @@
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
-  ::selection {
-    background: var(--accent);
-    color: #fff;
-  }
-  a {
-    color: var(--accent-ink);
-    text-underline-offset: 3px;
-  }
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 4px;
+  ::selection { background: var(--c1); color: #fff; }
+  a { color: var(--accent-ink); text-underline-offset: 3px; }
+  :focus-visible { outline: 2px solid var(--c2); outline-offset: 3px; border-radius: 4px; }
+
+  /* Hide the native cursor only once our custom cursor is mounted (fine pointers) */
+  @media (pointer: fine) {
+    html.cursor-on, html.cursor-on * { cursor: none !important; }
   }
 }
 
 @layer components {
-  /* monospace micro-label used across the site */
   .mono-label {
     font-family: theme("fontFamily.mono");
     font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-muted);
   }
-  /* subtle dot-grid texture (hero background) */
+  /* gradient text */
+  .grad-text {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .dotgrid {
     background-image: radial-gradient(var(--line-strong) 1px, transparent 1.4px);
-    background-size: 22px 22px;
+    background-size: 26px 26px;
   }
 }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-muted); }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 }
 
-/* Print: clean CV */
 @media print {
-  .no-print {
-    display: none !important;
-  }
-  body {
-    background: #fff;
-    color: #000;
-  }
+  .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
 }
