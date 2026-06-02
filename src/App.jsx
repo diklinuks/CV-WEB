@@ -3,8 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import TopBar from "./components/TopBar";
 import ColorLine from "./components/ColorLine";
-import Splash from "./pages/Splash";
-import Hub from "./pages/Hub";
+import Home from "./pages/Home";
 import CV from "./pages/CV";
 import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
@@ -42,20 +41,18 @@ const Page = ({ children }) => <motion.main {...pageMotion}>{children}</motion.m
 
 export default function App() {
   const location = useLocation();
-  // Splash ("/") and Hub ("/menu") are full-screen scenes with their own line.
-  const noChrome = location.pathname === "/" || location.pathname === "/menu";
+  const isHome = location.pathname === "/";
   const color = lineColor(location.pathname);
 
   return (
     <div className="flex min-h-screen flex-col">
       <ScrollToTop />
-      {!noChrome && <TopBar />}
-      {!noChrome && color && <ColorLine color={color} />}
+      {!isHome && <TopBar />}
+      {!isHome && color && <ColorLine color={color} />}
       <div className="relative z-10 flex-1">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Page><Splash /></Page>} />
-            <Route path="/menu" element={<Page><Hub /></Page>} />
+            <Route path="/" element={<Page><Home /></Page>} />
             <Route path="/cv" element={<Page><CV /></Page>} />
             <Route path="/projects" element={<Page><Projects /></Page>} />
             <Route path="/projects/:slug" element={<Page><ProjectDetail /></Page>} />
