@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 // A flowing band with a white-hot core that disperses into a rainbow, glowing
 // over black. three.js is dynamically imported (separate chunk, never blocks
 // first paint). Respects reduced-motion; fails gracefully to plain black.
-export default function ShaderWave() {
+export default function ShaderWave({ mode = "prism" }) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -40,12 +40,14 @@ export default function ShaderWave() {
           uniforms: {
             iTime: { value: 0 },
             iResolution: { value: new THREE.Vector2(1, 1) },
+            uMode: { value: mode === "white" ? 0.0 : 1.0 },
           },
           vertexShader: `void main(){ gl_Position = vec4(position,1.0); }`,
           fragmentShader: `
             precision highp float;
             uniform float iTime;
             uniform vec2 iResolution;
+            uniform float uMode;
 
             vec3 hsv2rgb(vec3 c){
               vec3 p = abs(fract(c.xxx + vec3(1.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0);
@@ -72,12 +74,16 @@ export default function ShaderWave() {
 
               float core = smoothstep(0.04, 0.0, dist);
 
-              // white at the far left, dispersing into red -> green -> blue
-              float seg = clamp((uv.x - 0.16) / 0.74, 0.0, 1.0);
-              float hue = seg * 0.66; // 0=red, .33=green, .66=blue
-              vec3 rgb = hsv2rgb(vec3(hue, 0.92, 1.0));
-              float white = smoothstep(0.26, 0.0, uv.x);
-              vec3 col = mix(rgb, vec3(1.0), white);
+              vec3 col;
+              if (uMode < 0.5) {
+                col = vec3(1.0); // white line (splash)
+              } else {
+                float seg = clamp((uv.x - 0.16) / 0.74, 0.0, 1.0);
+                float hue = seg * 0.66; // 0=red, .33=green, .66=blue
+                vec3 rgb = hsv2rgb(vec3(hue, 0.92, 1.0));
+                float wln = smoothstep(0.26, 0.0, uv.x);
+                col = mix(rgb, vec3(1.0), wln);
+              }
               col = mix(col, vec3(1.0), core * 0.7);
 
               vec3 outc = col * glow;
