@@ -23,8 +23,12 @@ export default function Splash() {
           Tymur Abdurakhmanov
         </motion.h1>
 
-        <motion.p variants={up} className="mt-7 font-mono text-[0.82rem] lowercase tracking-[0.06em] text-white/55">
-          this is my cv — looking for an internship
+        <motion.p variants={up} className="mt-7 max-w-[46ch] text-[1.05rem] leading-relaxed text-white/65">
+          This is my CV. I build software and ship real projects, and I'm
+          looking for an internship to learn fast and do good work.
+        </motion.p>
+        <motion.p variants={up} className="mt-4 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-white/35">
+          press enter to look around
         </motion.p>
 
         <motion.div variants={up} className="mt-12">
