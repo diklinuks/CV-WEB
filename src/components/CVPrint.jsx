@@ -100,12 +100,11 @@ function Entry({ name, meta, bullets }) {
   );
 }
 
-function ContactRow({ label, children }) {
+function Badge({ children }) {
   return (
-    <li className="text-[9.5px] leading-snug" style={{ color: SUB }}>
-      <span className="font-semibold" style={{ color: INK }}>{label}: </span>
+    <span className="inline-flex px-2 py-1 text-[8.5px] border rounded-full whitespace-nowrap" style={{ borderColor: LINE, color: SUB }}>
       {children}
-    </li>
+    </span>
   );
 }
 
@@ -123,11 +122,17 @@ export default function CVPrint({ preview = false }) {
           <Link to="/cv" className="underline" style={{ color: ACCENT }}>Back to CV page</Link>
         </div>
       )}
+      
       <div
         className="mx-auto grid min-h-[297mm] w-full max-w-[860px] grid-cols-[33%_1fr] overflow-hidden"
-        style={{ background: "#ffffff", color: INK, WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
+        style={{ 
+          background: `linear-gradient(to right, ${SIDE} 0%, ${SIDE} 33%, #ffffff 33%, #ffffff 100%)`, 
+          color: INK, 
+          WebkitPrintColorAdjust: "exact", 
+          printColorAdjust: "exact" 
+        }}
       >
-        <aside className="p-6" style={{ background: SIDE }}>
+        <aside className="p-6">
           <img
             src={cvPhoto}
             alt="Tymur Abdurakhmanov"
@@ -135,12 +140,14 @@ export default function CVPrint({ preview = false }) {
           />
 
           <SideHeading>Contact</SideHeading>
-          <ul className="flex flex-col gap-1.5">
-            <ContactRow label="Phone">+31 6 16 95 82 82</ContactRow>
-            <ContactRow label="Email">abdurakhmanovtimur472@gmail.com</ContactRow>
-            <ContactRow label="LinkedIn">linkedin.com/in/tymur-abdurakhmanov-129343356</ContactRow>
-            <ContactRow label="GitHub">github.com/diklinuks</ContactRow>
-            <li className="mt-2 text-[9px] leading-snug" style={{ color: MUT }}>
+          <div className="flex flex-wrap gap-1.5">
+            <Badge>Phone · +31 6 16 95 82 82</Badge>
+            <Badge>Email · abdurakhmanovtimur472@gmail.com</Badge>
+            <Badge>LinkedIn · in/tymur-abdurakhmanov</Badge>
+            <Badge>GitHub · @diklinuks</Badge>
+          </div>
+          <ul className="mt-2 flex flex-col gap-1.5">
+            <li className="text-[9px] leading-snug" style={{ color: MUT }}>
               Full portfolio with live demos of my projects:
             </li>
             <li className="text-[9.5px] leading-snug" style={{ color: SUB }}>
@@ -149,13 +156,13 @@ export default function CVPrint({ preview = false }) {
           </ul>
 
           <SideHeading>Details</SideHeading>
-          <ul className="flex flex-col gap-1 text-[9.5px]" style={{ color: SUB }}>
-            <li>Born 29 Nov 2004</li>
-            <li>Available Sep 2026 – Feb 2027</li>
-            <li>Eindhoven, NL</li>
-            <li>Willing to relocate within NL</li>
-            <li>Nuffic-eligible</li>
-          </ul>
+          <div className="flex flex-wrap gap-1.5">
+            <Badge>Born 29 Nov 2004</Badge>
+            <Badge>Available Sep 2026 – Feb 2027</Badge>
+            <Badge>Eindhoven, NL</Badge>
+            <Badge>Willing to relocate within NL</Badge>
+            <Badge>Nuffic-eligible</Badge>
+          </div>
 
           <SideHeading>Skills</SideHeading>
           <div className="flex flex-col gap-2">
