@@ -124,10 +124,10 @@ export default function CVPrint({ preview = false }) {
         </div>
       )}
       <div
-        className="mx-auto flex w-full max-w-[860px] overflow-hidden"
+        className="mx-auto grid min-h-[297mm] w-full max-w-[860px] grid-cols-[33%_1fr] overflow-hidden"
         style={{ background: "#ffffff", color: INK, WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
       >
-        <aside className="w-[33%] shrink-0 p-6" style={{ background: SIDE }}>
+        <aside className="p-6" style={{ background: SIDE }}>
           <img
             src={cvPhoto}
             alt="Tymur Abdurakhmanov"
@@ -182,7 +182,7 @@ export default function CVPrint({ preview = false }) {
           </p>
         </aside>
 
-        <main className="flex-1 p-7">
+        <main className="p-7">
           <h1 className="text-[26px] font-bold leading-none tracking-[-0.01em]" style={{ color: INK }}>Tymur Abdurakhmanov</h1>
           <p className="mt-1.5 text-[12px] font-medium" style={{ color: ACCENT }}>
             Generative AI / LLM Engineer Intern
