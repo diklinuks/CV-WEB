@@ -129,7 +129,7 @@ export default function CVPrint() {
   return (
     <div data-cvprint className="cv-print-root hidden print:block">
       <div
-        className="cv-print-grid mx-auto w-[210mm]"
+        className="cv-print-grid mx-auto w-[210mm] min-h-[297mm]"
         style={{
           color: INK,
           WebkitPrintColorAdjust: "exact",
