@@ -72,23 +72,23 @@ const personalProjects = [
 ];
 
 function SideHeading({ children }) {
-  return <h2 className="mb-2 mt-5 text-[9px] font-semibold uppercase tracking-[0.16em] first:mt-0" style={{ color: ACCENT }}>{children}</h2>;
+  return <h2 className="mb-3 mt-7 text-[9px] font-semibold uppercase tracking-[0.16em] first:mt-0" style={{ color: ACCENT }}>{children}</h2>;
 }
 function MainHeading({ children }) {
   return (
-    <h2 className="mb-1.5 mt-3.5 border-b pb-1 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: ACCENT, borderColor: LINE }}>
+    <h2 className="mb-3.5 mt-7 border-b pb-1.5 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: ACCENT, borderColor: LINE }}>
       {children}
     </h2>
   );
 }
 function Entry({ name, meta, bullets }) {
   return (
-    <div className="mb-3 break-inside-avoid">
+    <div className="mb-5 break-inside-avoid">
       <div className="flex items-baseline justify-between gap-3">
         <span className="text-[11.5px] font-semibold" style={{ color: INK }}>{name}</span>
         <span className="shrink-0 text-[8.5px]" style={{ color: MUT }}>{meta}</span>
       </div>
-      <ul className="mt-1 flex flex-col gap-0.5">
+      <ul className="mt-1.5 flex flex-col gap-1">
         {bullets.map((b, i) => (
           <li key={i} className="flex gap-1.5 text-[10px] leading-snug" style={{ color: SUB }}>
             <span aria-hidden="true" className="mt-[5px] h-[2px] w-[2px] shrink-0 rounded-full" style={{ background: ACCENT }} />
@@ -201,7 +201,7 @@ export default function CVPrint() {
           </p>
 
           <MainHeading>Skills</MainHeading>
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-4">
             {Object.entries(skills).map(([group, list]) => (
               <div key={group}>
                 <p className="text-[10px] font-semibold" style={{ color: ACCENT }}>{group}</p>
