@@ -1,5 +1,13 @@
-const LIVE_URL = "https://diklinuks.github.io/CV-WEB/";
-const CV_PHOTO_URL = `${import.meta.env.BASE_URL}cv-photo.png`;
+import {
+  CV_PHOTO_URL,
+  EMAIL,
+  GITHUB_URL,
+  LINKEDIN_URL,
+  LIVE_URL,
+  PHONE_DISPLAY,
+  PHONE_HREF,
+  skills,
+} from "../data/cv-meta";
 
 const INK = "#16161c";
 const SUB = "#3c3c46";
@@ -7,12 +15,6 @@ const MUT = "#6b6b77";
 const ACCENT = "#5b3fb4";
 const SIDE = "#f3f2f8";
 const LINE = "#e4e3ec";
-
-const skills = [
-  ["Generative AI & LLM agents", "LLMs, RAG, AI agents, multi-agent systems, LangChain, LangGraph, CrewAI, MCP, n8n, prompt engineering, Gemini / GPT / Claude / Grok, pgvector, ChromaDB"],
-  ["Machine Learning & CV", "PyTorch, scikit-learn, YOLOv8, OpenCV, object detection, explainable AI (SHAP), pandas, NumPy"],
-  ["Engineering & Data", "Python, JavaScript, FastAPI, PostgreSQL, SQL, Docker, Git, Linux, Streamlit, REST APIs"],
-];
 
 const clientProjects = [
   {
@@ -98,11 +100,28 @@ function Entry({ name, meta, bullets }) {
   );
 }
 
-function Badge({ children }) {
+function Badge({ children, href }) {
+  const cls = "inline-flex px-2 py-1 text-[8.5px] border rounded-full whitespace-nowrap";
+  const style = { borderColor: LINE, color: SUB };
+  if (href) {
+    return (
+      <a href={href} className={`${cls} underline decoration-[#5b3fb4]/40 underline-offset-2`} style={{ ...style, color: ACCENT }}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <span className="inline-flex px-2 py-1 text-[8.5px] border rounded-full whitespace-nowrap" style={{ borderColor: LINE, color: SUB }}>
+    <span className={cls} style={style}>
       {children}
     </span>
+  );
+}
+
+function DetailLine({ children }) {
+  return (
+    <li className="text-[9px] leading-snug" style={{ color: SUB }}>
+      {children}
+    </li>
   );
 }
 
@@ -121,20 +140,20 @@ export default function CVPrint() {
           <img
             src={CV_PHOTO_URL}
             alt="Tymur Abdurakhmanov"
-            width={148}
-            height={197}
+            width={180}
+            height={240}
             loading="eager"
-            className="mb-4 aspect-[3/4] w-full max-w-[148px] rounded-md object-cover object-top"
+            className="mb-4 aspect-[3/4] w-full rounded-md object-cover object-top"
           />
 
           <SideHeading>Contact</SideHeading>
           <div className="flex flex-wrap gap-1.5">
-            <Badge>Phone · +31 6 16 95 82 82</Badge>
-            <Badge>Email · abdurakhmanovtimur472@gmail.com</Badge>
-            <Badge>LinkedIn · in/tymur-abdurakhmanov</Badge>
-            <Badge>GitHub · @diklinuks</Badge>
+            <Badge>Phone · {PHONE_DISPLAY}</Badge>
+            <Badge>Email · {EMAIL}</Badge>
+            <Badge href={LINKEDIN_URL}>LinkedIn · in/tymur-abdurakhmanov</Badge>
+            <Badge href={GITHUB_URL}>GitHub · @diklinuks</Badge>
           </div>
-          <ul className="mt-2 flex flex-col gap-1.5">
+          <ul className="mt-2 flex list-none flex-col gap-1.5 p-0">
             <li className="text-[9px] leading-snug" style={{ color: MUT }}>
               Full portfolio with live demos of my projects:
             </li>
@@ -144,23 +163,16 @@ export default function CVPrint() {
           </ul>
 
           <SideHeading>Details</SideHeading>
-          <div className="flex flex-wrap gap-1.5">
-            <Badge>Born 29 Nov 2004</Badge>
-            <Badge>Available Sep 2026 – Feb 2027</Badge>
-            <Badge>Eindhoven, NL</Badge>
-            <Badge>Willing to relocate within NL</Badge>
-            <Badge>Nuffic-eligible</Badge>
-          </div>
-
-          <SideHeading>Skills</SideHeading>
-          <div className="flex flex-col gap-2">
-            {skills.map(([group, list]) => (
-              <div key={group}>
-                <p className="text-[9px] font-semibold" style={{ color: INK }}>{group}</p>
-                <p className="text-[9px] leading-snug" style={{ color: MUT }}>{list}</p>
-              </div>
-            ))}
-          </div>
+          <ul className="mb-0 flex list-none flex-col gap-1.5 p-0">
+            <DetailLine>Born 29 Nov 2004</DetailLine>
+            <DetailLine>Available Sep 2026 – Feb 2027</DetailLine>
+            <li className="flex flex-wrap gap-1.5">
+              <Badge>Eindhoven, NL</Badge>
+              <Badge>Willing to relocate within NL</Badge>
+            </li>
+            <DetailLine>Nuffic-eligible</DetailLine>
+            <DetailLine>Works in English</DetailLine>
+          </ul>
 
           <SideHeading>Languages</SideHeading>
           <ul className="flex flex-col gap-0.5 text-[9.5px]" style={{ color: SUB }}>
@@ -191,6 +203,16 @@ export default function CVPrint() {
             options, and writing down why I chose what I did. I pick up new tools quickly, communicate clearly, and I'm
             comfortable leading a team and taking responsibility for my work.
           </p>
+
+          <MainHeading>Skills</MainHeading>
+          <div className="flex flex-col gap-2.5">
+            {Object.entries(skills).map(([group, list]) => (
+              <div key={group}>
+                <p className="text-[10px] font-semibold" style={{ color: ACCENT }}>{group}</p>
+                <p className="text-[9.5px] leading-snug" style={{ color: MUT }}>{list.join(", ")}</p>
+              </div>
+            ))}
+          </div>
 
           <MainHeading>Industry &amp; Client Projects</MainHeading>
           {clientProjects.map((p) => <Entry key={p.name} {...p} />)}

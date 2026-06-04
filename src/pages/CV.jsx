@@ -4,44 +4,47 @@ import { Download, MapPin, Plane, Calendar, Phone, Mail, Linkedin, Github, Exter
 import KineticHeading from "../components/KineticHeading";
 import Reveal from "../components/Reveal";
 import CVPrint from "../components/CVPrint";
+import {
+  CV_PHOTO_URL,
+  EMAIL,
+  GITHUB_URL,
+  LINKEDIN_URL,
+  LIVE_URL,
+  PHONE_DISPLAY,
+  PHONE_HREF,
+  SKILL_ACCENT,
+  skills,
+} from "../data/cv-meta";
 
-const LIVE_URL = "https://diklinuks.github.io/CV-WEB/";
-// Stable path in /public — survives deploys without hashed bundle filenames.
-const CV_PHOTO_URL = `${import.meta.env.BASE_URL}cv-photo.png`;
-
-const contactRows = [
-  {
-    label: "Details",
-    items: [
-      { label: "Born 29 Nov 2004", icon: Calendar },
-      { label: "Available Sep 2026 – Feb 2027", icon: CalendarClock },
-      { label: "Eindhoven, NL", icon: MapPin },
-      { label: "Willing to relocate within NL", icon: Plane },
-      { label: "Nuffic-eligible", icon: BadgeCheck },
-      { label: "Works in English", icon: Languages },
-    ],
-  },
-  {
-    label: "Contact",
-    items: [
-      { label: "Phone · +31 6 16 95 82 82", href: "tel:+31616958282", icon: Phone },
-      { label: "Email · abdurakhmanovtimur472@gmail.com", href: "mailto:abdurakhmanovtimur472@gmail.com", icon: Mail },
-      { label: "LinkedIn · in/tymur-abdurakhmanov", href: "https://www.linkedin.com/in/tymur-abdurakhmanov-129343356/", icon: Linkedin },
-      { label: "GitHub · @diklinuks", href: "https://github.com/diklinuks", icon: Github },
-    ],
-  },
+const detailLines = [
+  { label: "Born 29 Nov 2004", icon: Calendar },
+  { label: "Available Sep 2026 – Feb 2027", icon: CalendarClock },
+  { label: "Nuffic-eligible", icon: BadgeCheck },
+  { label: "Works in English", icon: Languages },
 ];
 
-const skills = {
-  "Generative AI & LLM agents": ["LLMs", "RAG", "AI agents", "Multi-agent systems", "LangChain", "LangGraph", "CrewAI", "MCP", "n8n", "Prompt engineering", "Gemini", "GPT", "Claude", "Grok", "pgvector", "ChromaDB"],
-  "Machine Learning & Computer Vision": ["PyTorch", "scikit-learn", "YOLOv8", "OpenCV", "Object detection", "Explainable AI (SHAP)", "pandas", "NumPy"],
-  "Engineering & Data": ["Python", "JavaScript", "FastAPI", "PostgreSQL", "SQL", "Docker", "Git", "Linux", "Streamlit", "REST APIs"],
-};
-const SKILL_ACCENT = {
-  "Generative AI & LLM agents": "var(--violet)",
-  "Machine Learning & Computer Vision": "var(--cyan)",
-  "Engineering & Data": "var(--magenta)",
-};
+const detailLocationPair = [
+  { label: "Eindhoven, NL", icon: MapPin },
+  { label: "Willing to relocate within NL", icon: Plane },
+];
+
+const contactLinks = [
+  { prefix: "Phone", value: PHONE_DISPLAY, href: PHONE_HREF, icon: Phone },
+  { prefix: "Email", value: EMAIL, href: `mailto:${EMAIL}`, icon: Mail },
+  { prefix: "LinkedIn", value: "in/tymur-abdurakhmanov", href: LINKEDIN_URL, icon: Linkedin },
+  { prefix: "GitHub", value: "@diklinuks", href: GITHUB_URL, icon: Github },
+];
+
+const pillCls =
+  "inline-flex max-w-full items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 font-mono text-[0.7rem] transition-colors hover:border-line-strong";
+
+function RowLabel({ children }) {
+  return (
+    <span className="shrink-0 pt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-ink-muted sm:w-[4.5rem]">
+      {children}
+    </span>
+  );
+}
 
 const clientProjects = [
   {
@@ -163,15 +166,15 @@ export default function CV() {
         <header className="flex flex-col gap-7 pb-10 pt-28 md:pt-32">
           <div><span className="eyebrow">Curriculum Vitae</span></div>
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:gap-10">
-            <div className="glass shrink-0 overflow-hidden rounded-2xl border border-line bg-white p-1">
+            <div className="glass shrink-0 overflow-hidden rounded-2xl border border-line bg-white p-1.5">
               <img
                 src={CV_PHOTO_URL}
                 alt="Tymur Abdurakhmanov"
-                width={144}
-                height={192}
+                width={192}
+                height={256}
                 loading="eager"
                 decoding="async"
-                className="block h-40 w-[7.5rem] object-cover object-top sm:h-44 sm:w-[8.25rem] md:h-48 md:w-36"
+                className="block h-52 w-40 object-cover object-top sm:h-56 sm:w-44 md:h-60 md:w-[11.5rem]"
               />
             </div>
             <div className="min-w-0 flex-1 pt-1">
@@ -188,41 +191,49 @@ export default function CV() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {contactRows.map((row) => (
-              <div key={row.label} className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-5">
-                <span className="shrink-0 pt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-ink-muted sm:w-[4.5rem]">
-                  {row.label}
-                </span>
-                <div className="flex min-w-0 flex-1 flex-wrap gap-2">
-                  {row.items.map((c) => {
-                    const Icon = c.icon;
-                    const cls =
-                      "inline-flex max-w-full items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 font-mono text-[0.7rem] text-ink-soft";
-                    const inner = (
-                      <>
-                        <Icon size={13} strokeWidth={1.5} className="shrink-0 text-ink-muted" />
-                        <span className="truncate">{c.label}</span>
-                      </>
-                    );
-                    return c.href ? (
-                      <a
-                        key={c.label}
-                        href={c.href}
-                        target={c.href.startsWith("http") ? "_blank" : undefined}
-                        rel="noopener noreferrer"
-                        className={`${cls} transition-colors hover:border-line-strong hover:text-ink`}
-                      >
-                        {inner}
-                      </a>
-                    ) : (
-                      <span key={c.label} className={cls}>
-                        {inner}
-                      </span>
-                    );
-                  })}
-                </div>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-5">
+              <RowLabel>Details</RowLabel>
+              <ul className="flex min-w-0 flex-1 list-none flex-col gap-2 p-0">
+                {detailLines.map(({ label, icon: Icon }) => (
+                  <li key={label} className="flex items-center gap-2 font-mono text-[0.78rem] text-ink-soft">
+                    <Icon size={13} strokeWidth={1.5} className="shrink-0 text-ink-muted" />
+                    <span>{label}</span>
+                  </li>
+                ))}
+                <li className="flex flex-wrap gap-2">
+                  {detailLocationPair.map(({ label, icon: Icon }) => (
+                    <span
+                      key={label}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 font-mono text-[0.7rem] text-ink-soft"
+                    >
+                      <Icon size={13} strokeWidth={1.5} className="shrink-0 text-ink-muted" />
+                      {label}
+                    </span>
+                  ))}
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-5">
+              <RowLabel>Contact</RowLabel>
+              <div className="flex min-w-0 flex-1 flex-wrap gap-2">
+                {contactLinks.map(({ prefix, value, href, icon: Icon }) => (
+                  <a
+                    key={prefix}
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className={`${pillCls} text-ink-soft hover:text-ink`}
+                  >
+                    <Icon size={13} strokeWidth={1.5} className="shrink-0 text-ink-muted" />
+                    <span className="truncate">
+                      <span className="text-ink-muted">{prefix} · </span>
+                      <span className="text-cyan underline decoration-cyan/40 underline-offset-2">{value}</span>
+                    </span>
+                  </a>
+                ))}
               </div>
-            ))}
+            </div>
             <a
               href={LIVE_URL}
               target="_blank"
