@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { createPortal } from "react-dom";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Download, MapPin, Plane, Calendar, Phone, Mail, Linkedin, Github, ExternalLink, BadgeCheck, CalendarClock, Languages } from "lucide-react";
 import KineticHeading from "../components/KineticHeading";
 import Reveal from "../components/Reveal";
@@ -152,31 +151,15 @@ function Entry({ name, to, meta, note, bullets }) {
 }
 
 export default function CV() {
-  const [searchParams] = useSearchParams();
-  const printPreview = searchParams.get("preview") === "1";
-
   useEffect(() => {
     const prev = document.title;
-    document.title = printPreview ? "CV — PDF preview" : "Tymur Abdurakhmanov CV";
+    document.title = "Tymur Abdurakhmanov CV";
     return () => { document.title = prev; };
-  }, [printPreview]);
-
-  useEffect(() => {
-    document.body.style.overflow = printPreview ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [printPreview]);
+  }, []);
 
   return (
     <>
-      {printPreview &&
-        createPortal(
-          <div className="fixed inset-0 z-[9999] overflow-y-auto bg-white">
-            <CVPrint preview />
-          </div>,
-          document.body,
-        )}
-
-      <div className={`relative z-10 mx-auto w-full max-w-content px-6 md:px-8 print:hidden ${printPreview ? "hidden" : ""}`}>
+      <div className="relative z-10 mx-auto w-full max-w-content px-6 md:px-8 print:hidden">
         <header className="flex flex-col gap-7 pb-10 pt-28 md:pt-32">
           <div><span className="eyebrow">Curriculum Vitae</span></div>
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:gap-10">
@@ -252,7 +235,7 @@ export default function CV() {
             </a>
           </div>
 
-          <div className="no-print flex flex-wrap gap-3">
+          <div className="no-print">
             <button
               type="button"
               onClick={() => window.print()}
@@ -263,12 +246,6 @@ export default function CV() {
                 <Download size={15} strokeWidth={1.5} className="text-bg group-hover:text-ink" />
               </span>
             </button>
-            <Link
-              to="/cv?preview=1"
-              className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm text-ink-soft transition-colors hover:border-line-strong hover:text-ink"
-            >
-              Preview PDF layout
-            </Link>
           </div>
         </header>
 
@@ -352,7 +329,7 @@ export default function CV() {
 
         <div className="py-16" />
       </div>
-      {!printPreview && <CVPrint />}
+      <CVPrint />
     </>
   );
 }

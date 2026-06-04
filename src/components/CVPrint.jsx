@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 const LIVE_URL = "https://diklinuks.github.io/CV-WEB/";
 const CV_PHOTO_URL = `${import.meta.env.BASE_URL}cv-photo.png`;
 
@@ -107,31 +106,18 @@ function Badge({ children }) {
   );
 }
 
-export default function CVPrint({ preview = false }) {
-  const wrapCls = preview
-    ? "min-h-[100dvh] block overflow-y-auto bg-white"
-    : "hidden print:block";
-
+export default function CVPrint() {
   return (
-    <div data-cvprint className={wrapCls}>
-      {preview && (
-        <div className="sticky top-0 z-10 border-b px-4 py-2.5 text-center text-[11px]" style={{ borderColor: LINE, background: SIDE, color: SUB }}>
-          PDF preview — check layout here, then print from the CV page with <strong>Download PDF</strong> or{" "}
-          <kbd className="rounded border px-1" style={{ borderColor: LINE }}>⌘P</kbd>.{" "}
-          <Link to="/cv" className="underline" style={{ color: ACCENT }}>Back to CV page</Link>
-        </div>
-      )}
-      
+    <div data-cvprint className="cv-print-root hidden print:block">
       <div
-        className="mx-auto grid min-h-[297mm] w-full max-w-[860px] grid-cols-[33%_1fr] overflow-hidden"
-        style={{ 
-          background: `linear-gradient(to right, ${SIDE} 0%, ${SIDE} 33%, #ffffff 33%, #ffffff 100%)`, 
-          color: INK, 
-          WebkitPrintColorAdjust: "exact", 
-          printColorAdjust: "exact" 
+        className="cv-print-grid mx-auto w-[210mm]"
+        style={{
+          color: INK,
+          WebkitPrintColorAdjust: "exact",
+          printColorAdjust: "exact",
         }}
       >
-        <aside className="p-6">
+        <aside className="cv-print-aside" style={{ background: SIDE }}>
           <img
             src={CV_PHOTO_URL}
             alt="Tymur Abdurakhmanov"
@@ -191,7 +177,7 @@ export default function CVPrint({ preview = false }) {
           </p>
         </aside>
 
-        <main className="p-7">
+        <main className="cv-print-main" style={{ background: "#ffffff" }}>
           <h1 className="text-[26px] font-bold leading-none tracking-[-0.01em]" style={{ color: INK }}>Tymur Abdurakhmanov</h1>
           <p className="mt-1.5 text-[12px] font-medium" style={{ color: ACCENT }}>
             Generative AI / LLM Engineer Intern
