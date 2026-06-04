@@ -123,11 +123,17 @@ export default function CVPrint({ preview = false }) {
           <Link to="/cv" className="underline" style={{ color: ACCENT }}>Back to CV page</Link>
         </div>
       )}
+      
       <div
         className="mx-auto grid min-h-[297mm] w-full max-w-[860px] grid-cols-[33%_1fr] overflow-hidden"
-        style={{ background: "#ffffff", color: INK, WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
+        style={{ 
+          background: `linear-gradient(to right, ${SIDE} 0%, ${SIDE} 33%, #ffffff 33%, #ffffff 100%)`, 
+          color: INK, 
+          WebkitPrintColorAdjust: "exact", 
+          printColorAdjust: "exact" 
+        }}
       >
-        <aside className="p-6" style={{ background: SIDE }}>
+        <aside className="p-6">
           <img
             src={cvPhoto}
             alt="Tymur Abdurakhmanov"
