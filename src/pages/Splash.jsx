@@ -6,8 +6,7 @@ import Starfield from "../components/Starfield";
 import KineticHeading from "../components/KineticHeading";
 import MagneticButton from "../components/MagneticButton";
 
-// Page 1 — starfield hero. Kinetic name, magnetic Enter that fires a warp
-// burst before routing to the Hub.
+
 export default function Splash() {
   const [warping, setWarping] = useState(false);
   const navigate = useNavigate();

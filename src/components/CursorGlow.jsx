@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
 
-// Subtle radial glow that eases toward the pointer. Site-wide ambience —
-// not a custom cursor. Skipped on touch devices and reduced-motion.
 export default function CursorGlow() {
   const ref = useRef(null);
 

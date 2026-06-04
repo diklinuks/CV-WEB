@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Home } from "lucide-react";
 
-// Inner-page chrome: glass "back to Menu" pill + small "home" (Splash) button.
-// Dark-only (no theme toggle).
+
 export default function TopBar() {
   return (
     <div className="no-print fixed left-4 top-4 z-[60] flex items-center gap-2 md:left-6 md:top-6">

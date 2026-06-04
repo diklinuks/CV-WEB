@@ -1,7 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
 
-// Word-staggered blur-rise reveal for display headings (Fraunces).
-// Accessible: real text exposed via aria-label, animated spans hidden from AT.
 export default function KineticHeading({ text, as = "h1", className = "", delay = 0 }) {
   const reduce = useReducedMotion();
   const Tag = as;

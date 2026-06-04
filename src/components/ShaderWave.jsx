@@ -1,9 +1,6 @@
 import { useEffect, useRef } from "react";
 
-// Rainbow light-wave shader for the hero (the one bit of colour on the site).
-// A flowing band with a white-hot core that disperses into a rainbow, glowing
-// over black. three.js is dynamically imported (separate chunk, never blocks
-// first paint). Respects reduced-motion; fails gracefully to plain black.
+
 export default function ShaderWave({ mode = "prism" }) {
   const ref = useRef(null);
 

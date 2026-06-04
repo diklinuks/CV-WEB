@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { useReducedMotion } from "framer-motion";
 
-// Falling stars / shooting-star streaks (Aceternity-style, CSS-driven).
-// Disabled under reduced-motion.
+
 export default function Meteors({ number = 12 }) {
   const reduce = useReducedMotion();
   const meteors = useMemo(

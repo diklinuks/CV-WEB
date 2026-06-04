@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 
-// Light/dark toggle. Defaults to the OS setting until the user picks one,
-// then remembers the choice in localStorage. Flips the data-theme attribute
-// on <html>, which the CSS variables in index.css respond to.
+
 function getInitial() {
   const stored = localStorage.getItem("theme");
   if (stored === "light" || stored === "dark") return stored;

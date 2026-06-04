@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 
-// Blur-rise scroll reveal. Respects reduced-motion.
+
 export default function Reveal({ children, delay = 0, y = 24, className = "" }) {
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;

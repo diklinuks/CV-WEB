@@ -6,8 +6,7 @@ import { projects } from "../data/projects";
 
 const ACCENTS = ["var(--cyan)", "var(--violet)", "var(--magenta)"];
 
-// Horizontal, snap-scrolling project showcase (boxes, not a list).
-// Drag / wheel / arrow controls; each card opens its ProjectDetail.
+
 export default function ProjectCarousel() {
   const trackRef = useRef(null);
 

@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Starfield from "../components/Starfield";
 
-// Page 2 — choose a section. HORIZONTAL carousel (snap + drag/scroll + arrows + dots),
-// smaller transparent glass cards. Instant navigation (no warp).
+
 const dests = [
   { to: "/cv", label: "CV", desc: "Education, skills, who I am.", n: "01", accent: "var(--cyan)" },
   { to: "/projects", label: "Work", desc: "Projects & live demos.", n: "02", accent: "var(--violet)" },

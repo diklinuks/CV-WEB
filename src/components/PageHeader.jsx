@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import KineticHeading from "./KineticHeading";
 
-// Standard inner-page header: eyebrow + kinetic Fraunces title + lead.
-// pt clears the fixed TopBar.
+
 export default function PageHeader({ eyebrow, title, lead }) {
   return (
     <header className="border-b border-line pb-12 pt-28 md:pt-32">

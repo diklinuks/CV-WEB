@@ -1,7 +1,7 @@
 import MagneticButton from "../components/MagneticButton";
 import { ArrowRight } from "lucide-react";
 
-// 404 — sits over the app-level shader background.
+
 export default function NotFound() {
   return (
     <section className="relative isolate flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 text-center">

@@ -1,6 +1,4 @@
-// Thin colored line at the bottom of inner pages (CSS only, light + calm).
-// One main colour per page: CV = red, Work = green, Contact = blue.
-// Sits in the background; page content renders above it.
+
 export default function ColorLine({ color }) {
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-0 h-24 overflow-hidden" aria-hidden>

@@ -1,7 +1,8 @@
-// Print-only CV — a normal, professional two-column (sidebar + main) layout.
-// Hidden on screen, shown only when printing, so the downloaded PDF reads like a
-// standard CV (clean, light, ~1-2 pages) regardless of the dark website.
-// Remove the `hidden` class at runtime to preview it on screen.
+import { Link } from "react-router-dom";
+import cvPhoto from "../assets/cv-photo.png";
+
+const LIVE_URL = "https://diklinuks.github.io/CV-WEB/";
+
 const INK = "#16161c";
 const SUB = "#3c3c46";
 const MUT = "#6b6b77";
@@ -99,29 +100,59 @@ function Entry({ name, meta, bullets }) {
   );
 }
 
-export default function CVPrint() {
+function ContactRow({ label, children }) {
   return (
-    <div data-cvprint className="hidden print:block">
+    <li className="text-[9.5px] leading-snug" style={{ color: SUB }}>
+      <span className="font-semibold" style={{ color: INK }}>{label}: </span>
+      {children}
+    </li>
+  );
+}
+
+export default function CVPrint({ preview = false }) {
+  const wrapCls = preview
+    ? "min-h-[100dvh] block overflow-y-auto bg-white"
+    : "hidden print:block";
+
+  return (
+    <div data-cvprint className={wrapCls}>
+      {preview && (
+        <div className="sticky top-0 z-10 border-b px-4 py-2.5 text-center text-[11px]" style={{ borderColor: LINE, background: SIDE, color: SUB }}>
+          PDF preview — check layout here, then print from the CV page with <strong>Download PDF</strong> or{" "}
+          <kbd className="rounded border px-1" style={{ borderColor: LINE }}>⌘P</kbd>.{" "}
+          <Link to="/cv" className="underline" style={{ color: ACCENT }}>Back to CV page</Link>
+        </div>
+      )}
       <div
         className="mx-auto flex w-full max-w-[860px] overflow-hidden"
         style={{ background: "#ffffff", color: INK, WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
       >
-        {/* sidebar */}
         <aside className="w-[33%] shrink-0 p-6" style={{ background: SIDE }}>
+          <img
+            src={cvPhoto}
+            alt="Tymur Abdurakhmanov"
+            className="mb-4 aspect-[3/4] w-full max-w-[148px] rounded-md object-cover object-top"
+          />
+
           <SideHeading>Contact</SideHeading>
-          <ul className="flex flex-col gap-1 text-[9.5px]" style={{ color: SUB }}>
-            <li>Eindhoven, NL</li>
-            <li>+31 6 16 95 82 82</li>
-            <li>abdurakhmanovtimur472@gmail.com</li>
-            <li>linkedin.com/in/tymur-abdurakhmanov</li>
-            <li>github.com/diklinuks</li>
-            <li>diklinuks.github.io/CV-WEB</li>
+          <ul className="flex flex-col gap-1.5">
+            <ContactRow label="Phone">+31 6 16 95 82 82</ContactRow>
+            <ContactRow label="Email">abdurakhmanovtimur472@gmail.com</ContactRow>
+            <ContactRow label="LinkedIn">linkedin.com/in/tymur-abdurakhmanov-129343356</ContactRow>
+            <ContactRow label="GitHub">github.com/diklinuks</ContactRow>
+            <li className="mt-2 text-[9px] leading-snug" style={{ color: MUT }}>
+              Full portfolio with live demos of my projects:
+            </li>
+            <li className="text-[9.5px] leading-snug" style={{ color: SUB }}>
+              <a href={LIVE_URL} className="underline" style={{ color: ACCENT }}>{LIVE_URL.replace(/^https:\/\//, "")}</a>
+            </li>
           </ul>
 
           <SideHeading>Details</SideHeading>
           <ul className="flex flex-col gap-1 text-[9.5px]" style={{ color: SUB }}>
             <li>Born 29 Nov 2004</li>
             <li>Available Sep 2026 – Feb 2027</li>
+            <li>Eindhoven, NL</li>
             <li>Willing to relocate within NL</li>
             <li>Nuffic-eligible</li>
           </ul>
@@ -151,7 +182,6 @@ export default function CVPrint() {
           </p>
         </aside>
 
-        {/* main */}
         <main className="flex-1 p-7">
           <h1 className="text-[26px] font-bold leading-none tracking-[-0.01em]" style={{ color: INK }}>Tymur Abdurakhmanov</h1>
           <p className="mt-1.5 text-[12px] font-medium" style={{ color: ACCENT }}>

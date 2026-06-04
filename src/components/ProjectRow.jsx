@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-// Ledger-style project row with a sliding arrow on hover.
+
 export default function ProjectRow({ project, index }) {
   const num = String(index + 1).padStart(2, "0");
   return (

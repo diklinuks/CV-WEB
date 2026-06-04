@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
 
-// Starfield inspired by aliimam/starfield-1: 3D stars flying toward the viewer,
-// with mouse parallax and a "warp" burst. Cosmic-tinted, perf- and
-// reduced-motion-aware (pauses when tab hidden, caps DPR, static fallback).
+
 const TINTS = ["255,255,255", "180,232,255", "200,182,255", "255,200,235"]; // white, cyan, violet, magenta
 
 export default function Starfield({ warping = false, className = "" }) {

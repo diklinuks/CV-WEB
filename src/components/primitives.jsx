@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-// ===== Animated button (link, router-link, or plain button) =====
+
 const baseBtn =
   "cursor-grow inline-flex items-center gap-2 rounded-full border px-6 py-3 font-mono text-[0.8rem] tracking-wide transition-colors";
 

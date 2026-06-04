@@ -1,10 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-// Animated shader background — the diagonal aurora/meteor-streak look from the
-// user's 21st.dev "Animated Shader Background" reference (AnoAI shader), adapted
-// to our stack: capped DPR, paused when hidden, static under reduced-motion.
-// `ctanh` polyfills tanh (not built into WebGL1/GLSL ES 1.0).
 export default function CosmicBackground() {
   const containerRef = useRef(null);
 

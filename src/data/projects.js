@@ -1,10 +1,3 @@
-// Single source of truth for projects.
-// section types: { type: "p", text } | { type: "h", text } |
-//                { type: "ul", items: [...] }
-//
-// demo: live URL. demoEmbed: false => show an "Open live demo" button instead of
-// an iframe (for apps that aren't embeddable, e.g. a sleeping free-tier server).
-// docs: optional documentation URL.
 
 export const projects = [
   {

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, ExternalLink } from "lucide-react";
 
-// Click-to-load live demo. Heavy ML demo loads only on click, keeping the page fast.
 export default function DemoEmbed({ src, title, label }) {
   const [loaded, setLoaded] = useState(false);
 

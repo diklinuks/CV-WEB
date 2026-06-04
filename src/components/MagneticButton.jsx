@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-// Pill CTA with magnetic pointer-follow + "button-in-button" trailing icon.
-// variant: "primary" (filled) | "ghost" (glass outline).
+
 export default function MagneticButton({
   to,
   href,
