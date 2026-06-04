@@ -166,19 +166,15 @@ export default function CVPrint() {
           <ul className="mb-0 flex list-none flex-col gap-1.5 p-0">
             <DetailLine>Born 29 Nov 2004</DetailLine>
             <DetailLine>Available Sep 2026 – Feb 2027</DetailLine>
-            <li className="flex flex-wrap gap-1.5">
-              <Badge>Eindhoven, NL</Badge>
-              <Badge>Willing to relocate within NL</Badge>
-            </li>
+            <DetailLine>Eindhoven, NL</DetailLine> <DetailLine>Willing to relocate within NL</DetailLine>
             <DetailLine>Nuffic-eligible</DetailLine>
-            <DetailLine>Works in English</DetailLine>
           </ul>
 
           <SideHeading>Languages</SideHeading>
           <ul className="flex flex-col gap-0.5 text-[9.5px]" style={{ color: SUB }}>
+            <li>English — full professional</li>
             <li>Ukrainian — native</li>
             <li>Russian — native</li>
-            <li>English — full professional</li>
           </ul>
 
           <SideHeading>Education</SideHeading>
