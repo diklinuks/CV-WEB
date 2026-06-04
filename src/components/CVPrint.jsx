@@ -76,7 +76,7 @@ function SideHeading({ children }) {
 }
 function MainHeading({ children }) {
   return (
-    <h2 className="mb-2.5 mt-5 border-b pb-1 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: ACCENT, borderColor: LINE }}>
+    <h2 className="mb-1.5 mt-3.5 border-b pb-1 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: ACCENT, borderColor: LINE }}>
       {children}
     </h2>
   );
