@@ -11,6 +11,8 @@
     "deploy": "npm run build && gh-pages -d dist --dotfiles"
   },
   "dependencies": {
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@paper-design/shaders-react": "^0.0.76",
     "framer-motion": "^11.11.0",
     "lucide-react": "^0.451.0",
     "react": "^18.3.1",

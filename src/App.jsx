@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import TopBar from "./components/TopBar";
-import ColorLine from "./components/ColorLine";
+import CursorGlow from "./components/CursorGlow";
+import CosmicBackground from "./components/CosmicBackground";
 import Splash from "./pages/Splash";
 import Hub from "./pages/Hub";
 import CV from "./pages/CV";
@@ -10,15 +11,6 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-
-// One main colour per section (the line motif).
-const RED = "#ff5757", GREEN = "#3ddc84", BLUE = "#4aa3ff";
-function lineColor(pathname) {
-  if (pathname.startsWith("/cv")) return RED;
-  if (pathname.startsWith("/projects")) return GREEN;
-  if (pathname.startsWith("/contact")) return BLUE;
-  return null;
-}
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -33,27 +25,32 @@ function ScrollToTop() {
 }
 
 const pageMotion = {
-  initial: { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
-  transition: { duration: 0.34, ease: [0.22, 1, 0.36, 1] },
+  initial: { opacity: 0, filter: "blur(10px)", y: 16, scale: 0.985 },
+  animate: { opacity: 1, filter: "blur(0px)", y: 0, scale: 1 },
+  exit: { opacity: 0, filter: "blur(10px)", y: -12, scale: 1.015 },
+  transition: { duration: 0.55, ease: [0.32, 0.72, 0, 1] },
 };
 const Page = ({ children }) => <motion.main {...pageMotion}>{children}</motion.main>;
 
 export default function App() {
   const location = useLocation();
-  // Splash ("/") and Hub ("/menu") are full-screen scenes with their own line.
-  const noChrome = location.pathname === "/" || location.pathname === "/menu";
-  const color = lineColor(location.pathname);
+  const path = location.pathname;
+  const onSplashOrHub = path === "/" || path === "/menu";
+  // Inner routes (incl. 404) get the shader background, rendered HERE — outside the
+  // transformed/filtered page wrapper — so `fixed` stays anchored to the viewport
+  // (full-bleed, no cut-off, even when the page scrolls).
+  const showShaderBg = !onSplashOrHub;
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative flex min-h-[100dvh] flex-col">
       <ScrollToTop />
-      {!noChrome && <TopBar />}
-      {!noChrome && color && <ColorLine color={color} />}
+      {showShaderBg && <CosmicBackground />}
+      <CursorGlow />
+      <div className="grain" />
+      {!onSplashOrHub && <TopBar />}
       <div className="relative z-10 flex-1">
         <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
+          <Routes location={location} key={path}>
             <Route path="/" element={<Page><Splash /></Page>} />
             <Route path="/menu" element={<Page><Hub /></Page>} />
             <Route path="/cv" element={<Page><CV /></Page>} />

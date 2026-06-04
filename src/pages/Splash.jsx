@@ -1,41 +1,73 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import ShaderWave from "../components/ShaderWave";
+import Starfield from "../components/Starfield";
+import KineticHeading from "../components/KineticHeading";
+import MagneticButton from "../components/MagneticButton";
 
-const wrap = { hidden: {}, show: { transition: { staggerChildren: 0.14, delayChildren: 0.2 } } };
-const up = {
-  hidden: { opacity: 0, y: 18, filter: "blur(7px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-};
-
-// Page 1 — minimal, calm. White line. Name + short note + Enter.
+// Page 1 — starfield hero. Kinetic name, magnetic Enter that fires a warp
+// burst before routing to the Hub.
 export default function Splash() {
+  const [warping, setWarping] = useState(false);
+  const navigate = useNavigate();
+
+  const enter = () => {
+    if (warping) return;
+    setWarping(true);
+    setTimeout(() => navigate("/menu"), 760);
+  };
+
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#0a0a0b] px-6 text-center text-white">
-      <ShaderWave mode="white" />
+    <section className="relative isolate flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 text-center">
+      <Starfield warping={warping} />
 
-      <motion.div variants={wrap} initial="hidden" animate="show" className="relative z-10 flex flex-col items-center">
-        <motion.h1 variants={up} className="text-[clamp(2.4rem,7vw,5rem)] font-bold leading-[1.0] tracking-[-0.03em]">
-          Tymur Abdurakhmanov
-        </motion.h1>
+      <motion.div
+        animate={{ opacity: warping ? 0 : 1, scale: warping ? 1.08 : 1, filter: warping ? "blur(6px)" : "blur(0px)" }}
+        transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+        className="relative z-10 -mt-[5vh] flex flex-col items-center"
+      >
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+          className="eyebrow mb-7"
+        >
+          AI &amp; ML · Fontys Eindhoven
+        </motion.span>
 
-        <motion.p variants={up} className="mt-7 max-w-[46ch] text-[1.05rem] leading-relaxed text-white/65">
-          This is my CV. I build software and ship real projects, and I'm
-          looking for an internship to learn fast and do good work.
+        <KineticHeading
+          as="h1"
+          text="Tymur Abdurakhmanov"
+          delay={0.15}
+          className="font-fraunces text-[clamp(2.6rem,8vw,6rem)] font-semibold leading-[0.98] tracking-[-0.02em]"
+        />
+
+        <motion.p
+          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ delay: 0.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-7 max-w-[48ch] text-[1.05rem] leading-relaxed text-ink-soft"
+        >
+          I'm an AI &amp; ML student, and this is my CV. I'm looking for a September 2026 internship in the Netherlands. Open it to see my work.
         </motion.p>
 
-        <motion.div variants={up} className="mt-12">
-          <motion.span whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }} className="inline-block">
-            <Link
-              to="/menu"
-              className="cursor-grow inline-flex items-center gap-2 rounded-full border border-white/70 px-9 py-3.5 font-mono text-[0.82rem] tracking-wide text-white transition-colors hover:bg-white hover:text-[#0a0a0b]"
-            >
-              Enter <ArrowRight size={15} />
-            </Link>
-          </motion.span>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.7 }}
+          className="mt-12"
+        >
+          <MagneticButton onClick={enter} icon={ArrowRight}>Enter</MagneticButton>
         </motion.div>
       </motion.div>
+
+      {/* vignette for focus */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-[1]"
+        style={{ background: "radial-gradient(120% 90% at 50% 50%, transparent 38%, rgba(6,6,10,0.6) 100%)" }}
+      />
     </section>
   );
 }

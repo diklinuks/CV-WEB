@@ -1,66 +1,49 @@
 // Single source of truth for projects.
-// Add a project: append an object here. It automatically appears on the
-// homepage teaser, the /projects index, and gets its own /projects/<slug> page.
-//
 // section types: { type: "p", text } | { type: "h", text } |
-//                { type: "ul", items: [...] } | { type: "code", text }
+//                { type: "ul", items: [...] }
+//
+// demo: live URL. demoEmbed: false => show an "Open live demo" button instead of
+// an iframe (for apps that aren't embeddable, e.g. a sleeping free-tier server).
+// docs: optional documentation URL.
 
 export const projects = [
   {
     slug: "betsy",
     name: "Betsy",
-    tagline: "Autonomous procurement agent for a small manufacturer.",
+    tagline: "An AI agent that runs purchasing for a small manufacturer.",
     lead:
-      "A single ReAct agent that monitors inventory, evaluates suppliers, places purchase orders, and learns from outcomes over a 90-day simulation — pausing for human approval on high-value decisions.",
-    tags: ["LangGraph", "MCP", "Gemini 2.5 Flash", "pgvector", "FastAPI", "Python 3.12"],
+      "Betsy handles procurement across a 90-day simulation. She watches stock, reorders before things run out, picks suppliers, places orders, and asks a human before the big decisions.",
+    tags: ["LangGraph", "MCP", "Gemini", "pgvector", "FastAPI", "Python"],
     repo: "https://github.com/diklinuks/Betsy-App",
-    demo: null,
+    demo: "https://betsy-s4fe.onrender.com",
+    demoEmbed: false,
+    demoNote: "Free hosting, so the demo can take ~30 seconds to wake up.",
+    docs: "https://github.com/diklinuks/Betsy-Obsidian",
     year: "2025",
     sections: [
-      { type: "h", text: "What Betsy does" },
+      { type: "h", text: "What it does" },
       {
         type: "p",
         text:
-          "Betsy runs the procurement function for a small manufacturer. Each simulated day she watches inventory, decides when to reorder, weighs suppliers on price, lead-time, and reliability, places purchase orders, tracks deliveries, reconciles invoices, and reflects on each decision. High-value or unusual decisions pause for human approval instead of executing autonomously.",
+          "Betsy runs the buying for a small manufacturer across a 90-day simulation. She tracks stock and reorders before items run out, scores suppliers on price, lead time and reliability, places orders with the best ones, follows deliveries and invoices, and pauses for a human on anything large or unusual.",
       },
-      { type: "h", text: "Architecture" },
+      { type: "h", text: "How the demo works" },
       {
         type: "p",
         text:
-          "The agent is a LangGraph create_react_agent with tools exposed through an MCP (Model Context Protocol) server, consumed via langchain-mcp-adapters. Gemini 2.5 Flash proposes actions; the actual decisions, caps, and writes are enforced in code, not by the model.",
+          "There is a dashboard where you run the simulation day by day, approve or reject the decisions she flags, read the full audit log, tune how she scores suppliers, and see the final report. Rejecting a decision needs a reason, and that reason becomes a lesson she remembers next time. The full write-up and design notes live in the documentation.",
       },
-      { type: "h", text: "The split between LLM and code" },
-      {
-        type: "ul",
-        items: [
-          "LLM proposes — which supplier, how much, when.",
-          "Code decides and enforces — caps, blocked-supplier lists, database writes, append-only audit log.",
-          "LLM reflects — after an outcome it writes a lesson, embedded into the vector store.",
-        ],
-      },
-      { type: "h", text: "Memory" },
+      { type: "h", text: "Technical choices" },
       {
         type: "p",
         text:
-          "Two layers. Structured data (suppliers, orders, deliveries, invoices) lives in PostgreSQL. Rationale and learned lessons live in pgvector. Before a similar reorder, Betsy retrieves relevant past lessons so she doesn't repeat mistakes.",
+          "Betsy is one LangGraph agent with its tools behind an MCP server. Gemini proposes the next move, but the real decisions, the spending caps and every database write live in code, not in the model. Structured data sits in PostgreSQL and her reasoning and past lessons sit in pgvector, so before a similar order she pulls up what she learned last time. The hard limits, like spend caps, blocked suppliers and an append-only audit log, are enforced in code, and she cannot work around them.",
       },
-      { type: "h", text: "The Jenny dashboard" },
+      { type: "h", text: "What's next" },
       {
         type: "p",
         text:
-          "A FastAPI web app where the human operator runs the simulation, watches it tick, approves or rejects flagged decisions, inspects the audit log, tunes scoring weights, and reads the final report. Rejections require a reason — and that reason becomes a learned lesson.",
-      },
-      { type: "h", text: "Ethics & safety" },
-      {
-        type: "p",
-        text:
-          "Hard guardrails enforced in code, not by the LLM: spending caps, blocked-supplier lists, an append-only audit log, and privacy projections on what the agent sees. The agent cannot bypass these regardless of what it proposes.",
-      },
-      { type: "h", text: "How to run it" },
-      {
-        type: "code",
-        text:
-          "docker compose up -d\npython3.12 -m venv .venv && source .venv/bin/activate\npip install -r requirements.txt\ncp .env.example .env  # paste your GEMINI_API_KEY\npython -m app.main load\nuvicorn app.web.main:app --reload --port 8000",
+          "Wider scenarios beyond the 90-day run, a sharper supplier-scoring model, and a smoother approval flow for the person supervising her.",
       },
     ],
   },
@@ -68,10 +51,10 @@ export const projects = [
   {
     slug: "waste-detection",
     name: "Floating Waste Detection",
-    tagline: "Computer-vision model that detects floating waste in water.",
+    tagline: "A computer-vision model that finds floating waste in water.",
     lead:
-      "A YOLO-family model that finds floating waste in surface water — and runs live, right in your browser. No server: inference happens on your machine.",
-    tags: ["Python", "PyTorch", "YOLO", "OpenCV", "In-browser inference"],
+      "I trained a model to spot floating waste in water. It runs live in your browser and scores video frame by frame, with nothing sent to a server.",
+    tags: ["Python", "PyTorch", "YOLOv8", "OpenCV", "In-browser"],
     repo: "https://github.com/diklinuks/waste-detector",
     demo: "https://diklinuks.github.io/waste-detector/#demo",
     demoLabel: "diklinuks.github.io/waste-detector",
@@ -81,42 +64,36 @@ export const projects = [
       {
         type: "p",
         text:
-          "An object-detection model from the YOLO family identifies floating waste — bottles, plastic fragments, larger debris — in images of surface water. The demo above loads the model into your browser and runs inference locally, with no server involved.",
+          "It finds floating waste like bottles, cans, cartons, plastic and paper in water, and draws a box around each piece it spots with a confidence score.",
       },
       { type: "h", text: "How the demo works" },
       {
         type: "p",
         text:
-          "The trained model is exported to a web-friendly format and loaded in the browser. You give it an image, it runs a forward pass on your machine, and draws bounding boxes around detected waste with confidence scores. Nothing is uploaded — the inference is local.",
+          "The trained model loads straight into the page and runs on your own machine. Give it an image or a video and it scores it frame by frame. Nothing is uploaded.",
       },
       { type: "h", text: "Technical choices" },
       {
         type: "p",
         text:
-          "YOLO over two-stage detectors because inference speed matters for footage and the accuracy trade-off is small. Training used augmentation for lighting and water-reflection variation, since real footage spans bright midday water, overcast afternoons, and glare — the cases that break models trained only on clean data.",
-      },
-      { type: "h", text: "What surprised me" },
-      {
-        type: "p",
-        text:
-          "REPLACE: one concrete thing you learned building this — a dataset gotcha, a class of false positives, or a quirk getting the model to run in the browser. Recruiters test for engineers who can articulate what they actually learned.",
+          "I built a custom dataset of about 9,000 images, then trained and compared seven models, from Random Forest and SVM up to YOLO, and kept the best (mAP@50 around 0.87). I augmented for glare and reflections so it holds up on real water, not just clean sample shots.",
       },
       { type: "h", text: "What's next" },
       {
         type: "p",
         text:
-          "Better performance on low-light and reflective water, faster in-browser inference, and an evaluation set from real partner-organisation footage rather than curated data.",
+          "Better results on low-light and reflective water, faster in-browser inference, and an evaluation set built from real footage rather than curated images.",
       },
     ],
   },
 
   {
     slug: "airbnb-ml",
-    name: "Airbnb Price Prediction",
-    tagline: "ML model predicting short-stay listing prices, with a live map.",
+    name: "Amsterdam Airbnb",
+    tagline: "Price and market analysis for Amsterdam short-stay listings.",
     lead:
-      "A machine-learning model that predicts short-stay listing prices from listing features and location, paired with an interactive map — live in your browser.",
-    tags: ["Python", "scikit-learn", "Pandas", "Leaflet / map", "JavaScript"],
+      "I set out to predict nightly prices for Amsterdam listings, found the data could not carry it, and turned the project into a market-segmentation map instead.",
+    tags: ["Python", "scikit-learn", "Pandas", "SHAP", "Leaflet"],
     repo: "https://github.com/diklinuks/Airbnb-Machine-learning",
     demo: "https://diklinuks.github.io/Airbnb-Machine-learning/web/#map-section",
     demoLabel: "diklinuks.github.io/Airbnb-Machine-learning",
@@ -126,25 +103,25 @@ export const projects = [
       {
         type: "p",
         text:
-          "REPLACE / confirm: the model estimates a listing's price from features such as location, room type, capacity, and availability. The interactive map plots listings geographically so you can see how predicted price varies across the area.",
+          "It looks at about 7,800 Amsterdam listings, estimates a nightly price from their features, and shows the result on an interactive map.",
       },
-      { type: "h", text: "Data & model" },
+      { type: "h", text: "How the demo works" },
       {
         type: "p",
         text:
-          "REPLACE: which dataset, how it was cleaned, which model performed best, and the metric you evaluated on (RMSE / MAE / R²). Features were engineered in Pandas; several regression models were compared, with the best chosen on held-out error.",
+          "A map in the browser reads the exported predictions and clusters and plots them, served as a static site on GitHub Pages.",
       },
-      { type: "h", text: "The map" },
+      { type: "h", text: "Technical choices" },
       {
         type: "p",
         text:
-          "REPLACE: how the front-end works — a static map library reading exported predictions, served on GitHub Pages.",
+          "I engineered the features in Pandas and compared several regression models. The best only reached an R² of about 0.23, so I used SHAP to show why the features fall short, then switched to clustering the listings into five market segments and put those on the map.",
       },
-      { type: "h", text: "What surprised me" },
+      { type: "h", text: "What's next" },
       {
         type: "p",
         text:
-          "REPLACE: one concrete learning — a feature that mattered more than expected, a data-quality problem, or a modelling trade-off.",
+          "Richer features such as seasonality, events and finer location detail, a cleaner segmentation, or a target the data can actually support.",
       },
     ],
   },
