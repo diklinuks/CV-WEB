@@ -1,45 +1,34 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link, useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Download, MapPin, Plane, Calendar, Phone, Mail, Linkedin, Github, Globe, BadgeCheck, CalendarClock, Languages } from "lucide-react";
+import { Download, MapPin, Plane, Calendar, Phone, Mail, Linkedin, Github, ExternalLink, BadgeCheck, CalendarClock, Languages } from "lucide-react";
 import KineticHeading from "../components/KineticHeading";
 import Reveal from "../components/Reveal";
 import CVPrint from "../components/CVPrint";
-import cvPhoto from "../assets/cv-photo.png";
 
 const LIVE_URL = "https://diklinuks.github.io/CV-WEB/";
+// Stable path in /public — survives deploys without hashed bundle filenames.
+const CV_PHOTO_URL = `${import.meta.env.BASE_URL}cv-photo.png`;
 
-const contactGroups = [
-  {
-    label: "Location",
-    items: [
-      { label: "Eindhoven, NL", icon: MapPin },
-      { label: "Willing to relocate within NL", icon: Plane },
-    ],
-  },
+const contactRows = [
   {
     label: "Details",
     items: [
       { label: "Born 29 Nov 2004", icon: Calendar },
-      { label: "Nuffic-eligible", icon: BadgeCheck },
       { label: "Available Sep 2026 – Feb 2027", icon: CalendarClock },
+      { label: "Eindhoven, NL", icon: MapPin },
+      { label: "Willing to relocate within NL", icon: Plane },
+      { label: "Nuffic-eligible", icon: BadgeCheck },
       { label: "Works in English", icon: Languages },
     ],
   },
   {
     label: "Contact",
     items: [
-      { label: "+31 6 16 95 82 82", href: "tel:+31616958282", icon: Phone },
-      { label: "abdurakhmanovtimur472@gmail.com", href: "mailto:abdurakhmanovtimur472@gmail.com", icon: Mail },
-    ],
-  },
-  {
-    label: "Links",
-    items: [
-      { label: "in/tymur-abdurakhmanov", href: "https://www.linkedin.com/in/tymur-abdurakhmanov-129343356/", icon: Linkedin },
-      { label: "@diklinuks", href: "https://github.com/diklinuks", icon: Github },
-      { label: "diklinuks.github.io/CV-WEB", href: LIVE_URL, icon: Globe },
+      { label: "Phone · +31 6 16 95 82 82", href: "tel:+31616958282", icon: Phone },
+      { label: "Email · abdurakhmanovtimur472@gmail.com", href: "mailto:abdurakhmanovtimur472@gmail.com", icon: Mail },
+      { label: "LinkedIn · in/tymur-abdurakhmanov", href: "https://www.linkedin.com/in/tymur-abdurakhmanov-129343356/", icon: Linkedin },
+      { label: "GitHub · @diklinuks", href: "https://github.com/diklinuks", icon: Github },
     ],
   },
 ];
@@ -191,18 +180,17 @@ export default function CV() {
         <header className="flex flex-col gap-7 pb-10 pt-28 md:pt-32">
           <div><span className="eyebrow">Curriculum Vitae</span></div>
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:gap-10">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="glass shrink-0 overflow-hidden rounded-2xl border border-line p-1"
-            >
+            <div className="glass shrink-0 overflow-hidden rounded-2xl border border-line bg-white p-1">
               <img
-                src={cvPhoto}
+                src={CV_PHOTO_URL}
                 alt="Tymur Abdurakhmanov"
-                className="h-40 w-[7.5rem] object-cover object-top sm:h-44 sm:w-[8.25rem] md:h-48 md:w-36"
+                width={144}
+                height={192}
+                loading="eager"
+                decoding="async"
+                className="block h-40 w-[7.5rem] object-cover object-top sm:h-44 sm:w-[8.25rem] md:h-48 md:w-36"
               />
-            </motion.div>
+            </div>
             <div className="min-w-0 flex-1 pt-1">
               <KineticHeading
                 as="h1"
@@ -216,30 +204,52 @@ export default function CV() {
             </div>
           </div>
 
-          {/* contact details — grouped into labelled rows, stacked with spacing */}
           <div className="flex flex-col gap-4">
-            {contactGroups.map((g) => (
-              <div key={g.label} className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-5">
-                <span className="shrink-0 pt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-ink-muted sm:w-16">{g.label}</span>
-                <div className="flex flex-wrap gap-2">
-                  {g.items.map((c) => {
+            {contactRows.map((row) => (
+              <div key={row.label} className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-5">
+                <span className="shrink-0 pt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.2em] text-ink-muted sm:w-[4.5rem]">
+                  {row.label}
+                </span>
+                <div className="flex min-w-0 flex-1 flex-wrap gap-2">
+                  {row.items.map((c) => {
                     const Icon = c.icon;
-                    const cls = "inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 font-mono text-[0.7rem] text-ink-soft";
+                    const cls =
+                      "inline-flex max-w-full items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-3 py-1.5 font-mono text-[0.7rem] text-ink-soft";
                     const inner = (
                       <>
                         <Icon size={13} strokeWidth={1.5} className="shrink-0 text-ink-muted" />
-                        <span>{c.label}</span>
+                        <span className="truncate">{c.label}</span>
                       </>
                     );
                     return c.href ? (
-                      <a key={c.label} href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className={`${cls} transition-colors hover:border-line-strong hover:text-ink`}>{inner}</a>
+                      <a
+                        key={c.label}
+                        href={c.href}
+                        target={c.href.startsWith("http") ? "_blank" : undefined}
+                        rel="noopener noreferrer"
+                        className={`${cls} transition-colors hover:border-line-strong hover:text-ink`}
+                      >
+                        {inner}
+                      </a>
                     ) : (
-                      <span key={c.label} className={cls}>{inner}</span>
+                      <span key={c.label} className={cls}>
+                        {inner}
+                      </span>
                     );
                   })}
                 </div>
               </div>
             ))}
+            <a
+              href={LIVE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full flex-wrap items-center gap-2 rounded-full border border-line bg-white/[0.03] px-4 py-2.5 font-mono text-[0.7rem] text-ink-soft transition-colors hover:border-line-strong hover:text-ink sm:ml-[calc(4.5rem+1.25rem)]"
+            >
+              <span>Full portfolio with live demos of my projects —</span>
+              <span className="text-cyan">diklinuks.github.io/CV-WEB</span>
+              <ExternalLink size={13} strokeWidth={1.5} className="shrink-0 text-ink-muted" />
+            </a>
           </div>
 
           <div className="no-print flex flex-wrap gap-3">

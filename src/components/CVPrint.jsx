@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import cvPhoto from "../assets/cv-photo.png";
-
 const LIVE_URL = "https://diklinuks.github.io/CV-WEB/";
+const CV_PHOTO_URL = `${import.meta.env.BASE_URL}cv-photo.png`;
 
 const INK = "#16161c";
 const SUB = "#3c3c46";
@@ -134,8 +133,11 @@ export default function CVPrint({ preview = false }) {
       >
         <aside className="p-6">
           <img
-            src={cvPhoto}
+            src={CV_PHOTO_URL}
             alt="Tymur Abdurakhmanov"
+            width={148}
+            height={197}
+            loading="eager"
             className="mb-4 aspect-[3/4] w-full max-w-[148px] rounded-md object-cover object-top"
           />
 
