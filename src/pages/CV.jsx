@@ -31,7 +31,8 @@ const contactRows = [
     label: "Contact",
     items: [
       { label: "Phone · +31 6 16 95 82 82", href: PHONE_HREF, icon: Phone },
-      { label: `Email · ${EMAIL}`, href: `mailto:${EMAIL}`, icon: Mail },
+      { label: `Personal Email · ${EMAIL}`, href: `mailto:${EMAIL}`, icon: Mail },
+      { label: "Fontys Email · t.abdurakhmanov@student.fontys.nl", href: "mailto:t.abdurakhmanov@student.fontys.nl", icon: Mail },
       { label: "LinkedIn · in/tymur-abdurakhmanov", href: LINKEDIN_URL, icon: Linkedin },
       { label: "GitHub · @diklinuks", href: GITHUB_URL, icon: Github },
     ],

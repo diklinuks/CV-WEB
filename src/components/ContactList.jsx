@@ -1,7 +1,8 @@
 import { Mail, Phone, Linkedin, Github, ArrowUpRight } from "lucide-react";
 
 const rows = [
-  { icon: Mail, label: "Email", value: "abdurakhmanovtimur472@gmail.com", href: "mailto:abdurakhmanovtimur472@gmail.com" },
+  { icon: Mail, label: "Email (Personal)", value: "abdurakhmanovtimur472@gmail.com", href: "mailto:abdurakhmanovtimur472@gmail.com" },
+  { icon: Mail, label: "Email (Fontys)", value: "t.abdurakhmanov@student.fontys.nl", href: "mailto:t.abdurakhmanov@student.fontys.nl" },
   { icon: Phone, label: "Phone", value: "+31 6 16 95 82 82", href: "tel:+31616958282" },
   { icon: Linkedin, label: "LinkedIn", value: "in/tymur-abdurakhmanov", href: "https://www.linkedin.com/in/tymur-abdurakhmanov-129343356/" },
   { icon: Github, label: "GitHub", value: "@diklinuks", href: "https://github.com/diklinuks" },

@@ -63,7 +63,6 @@ function MainHeading({ children }) {
   );
 }
 
-// Компонент Entry изменен: теперь он выводит текст (description) абзацем, а не списком
 function Entry({ name, meta, description }) {
   return (
     <div className="mb-3 break-inside-avoid">
@@ -128,6 +127,7 @@ export default function CVPrint() {
           <div className="flex flex-wrap gap-1.5">
             <Badge>Phone · {PHONE_DISPLAY}</Badge>
             <Badge>Email · {EMAIL}</Badge>
+            <Badge>Fontys · t.abdurakhmanov@student.fontys.nl</Badge>
             <Badge href={LINKEDIN_URL}>LinkedIn · in/tymur-abdurakhmanov</Badge>
             <Badge href={GITHUB_URL}>GitHub · @diklinuks</Badge>
           </div>
