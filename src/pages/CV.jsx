@@ -232,7 +232,7 @@ export default function CV() {
 
           <div className="no-print">
             <a
-              href="/CV.pdf"
+              href="/CV-WEB/CV.pdf"
               download="Tymur_Abdurakhmanov_CV.pdf"
               className="group inline-flex items-center gap-3 rounded-full border border-transparent bg-ink py-2.5 pl-6 pr-2 text-sm font-medium text-bg transition-[background-color,color,border-color] duration-500 ease-fluid hover:border-line-strong hover:bg-transparent hover:text-ink"
             >
