@@ -231,16 +231,16 @@ export default function CV() {
           </div>
 
           <div className="no-print">
-            <button
-              type="button"
-              onClick={() => window.print()}
+            <a
+              href="/CV.pdf"
+              download="Tymur_Abdurakhmanov_CV.pdf"
               className="group inline-flex items-center gap-3 rounded-full border border-transparent bg-ink py-2.5 pl-6 pr-2 text-sm font-medium text-bg transition-[background-color,color,border-color] duration-500 ease-fluid hover:border-line-strong hover:bg-transparent hover:text-ink"
             >
               Download PDF
               <span className="grid h-8 w-8 place-items-center rounded-full bg-black/10 transition-colors group-hover:bg-white/10">
                 <Download size={15} strokeWidth={1.5} className="text-bg group-hover:text-ink" />
               </span>
-            </button>
+            </a>
           </div>
         </header>
 
