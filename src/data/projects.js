@@ -10,8 +10,8 @@ export const projects = [
     tags: ["LangGraph", "MCP", "Gemini", "pgvector", "FastAPI", "Python"],
     repo: "https://github.com/diklinuks/Betsy-App",
     demo: "https://betsy-s4fe.onrender.com",
-    demoEmbed: false,
-    demoNote: "Free hosting, so the demo can take ~30 seconds to wake up.",
+    demoLabel: "betsy-s4fe.onrender.com",
+    demoNote: "Free hosting, so the first run can take ~30–50 seconds to wake up.",
     docs: "https://github.com/diklinuks/Betsy-Obsidian",
     year: "2026",
     sections: [
