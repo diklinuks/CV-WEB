@@ -15,6 +15,7 @@ export default function Starfield({ warping = false, className = "" }) {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let w = 0, h = 0, cx = 0, cy = 0, dpr = 1, stars = [], raf = 0, warp = 0;

@@ -1,6 +1,14 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+// Static aurora-ish gradient shown when WebGL is unavailable (blocked GPU,
+// remote desktop, some in-app browsers) — without it the page went black.
+const FALLBACK_BG =
+  "radial-gradient(60% 50% at 72% 16%, rgba(124,92,255,0.16), transparent 70%)," +
+  "radial-gradient(55% 45% at 18% 78%, rgba(70,224,255,0.10), transparent 70%)," +
+  "radial-gradient(40% 35% at 50% 50%, rgba(255,94,168,0.05), transparent 70%)," +
+  "#06060a";
+
 export default function CosmicBackground() {
   const containerRef = useRef(null);
 
@@ -9,9 +17,15 @@ export default function CosmicBackground() {
     if (!container) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch {
+      container.style.background = FALLBACK_BG;
+      return;
+    }
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     const dpr = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
     renderer.setPixelRatio(dpr);
     renderer.setSize(window.innerWidth, window.innerHeight);

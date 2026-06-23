@@ -1,10 +1,11 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Download, MapPin, Plane, Calendar, Phone, Mail, Linkedin, Github, ExternalLink, BadgeCheck, CalendarClock, Languages } from "lucide-react";
+import { Download, MapPin, Plane, Calendar, Phone, Mail, Linkedin, Github, ExternalLink, BadgeCheck, CalendarClock, Languages, Printer } from "lucide-react";
 import KineticHeading from "../components/KineticHeading";
 import Reveal from "../components/Reveal";
 import CVPrint from "../components/CVPrint";
+import usePageTitle from "../hooks/usePageTitle";
 import {
+  CV_PDF_URL,
   CV_PHOTO_URL,
   EMAIL,
   GITHUB_URL,
@@ -78,10 +79,12 @@ const selectedProjects = [
   },
   {
     name: "Eva — Multi-agent marketing team",
+    to: "/projects/eva",
     meta: "Generative AI · live demo",
     bullets: [
-      "Give it something to market (a product, a book, a service) and a team of specialised AI agents collaborates on the whole campaign — audience, strategy, copy, creative — instead of one model doing everything.",
-      "Currently building and testing how the agents split the work and hand off to each other.",
+      "Give it something to market (a product, a book, a service) and a team of specialised AI agents — strategist, copywriter, designer and critic, run by a lead — collaborates on the whole campaign instead of one model doing everything.",
+      "You watch them work live: they hand off, critique, and send work back for a redo when the critic flags it.",
+      <>Every model call runs through one router that spreads work across <strong>seven</strong> free providers, with rate budgets, cooldowns and a fallback ladder, so a run degrades instead of dying.</>,
     ],
   },
   {
@@ -147,11 +150,7 @@ function Entry({ name, to, meta, note, bullets }) {
 }
 
 export default function CV() {
-  useEffect(() => {
-    const prev = document.title;
-    document.title = "Tymur Abdurakhmanov CV";
-    return () => { document.title = prev; };
-  }, []);
+  usePageTitle("Tymur Abdurakhmanov — CV");
 
   return (
     <>
@@ -231,15 +230,22 @@ export default function CV() {
             </a>
           </div>
 
-          <div className="no-print">
-            <button
-              onClick={() => window.print()}
+          <div className="no-print flex flex-wrap items-center gap-3">
+            <a
+              href={CV_PDF_URL}
+              download="Tymur-Abdurakhmanov-CV.pdf"
               className="group inline-flex items-center gap-3 rounded-full border border-transparent bg-ink py-2.5 pl-6 pr-2 text-sm font-medium text-bg transition-[background-color,color,border-color] duration-500 ease-fluid hover:border-line-strong hover:bg-transparent hover:text-ink"
             >
-              Print / Save as PDF
+              Download PDF
               <span className="grid h-8 w-8 place-items-center rounded-full bg-black/10 transition-colors group-hover:bg-white/10">
                 <Download size={15} strokeWidth={1.5} className="text-bg group-hover:text-ink" />
               </span>
+            </a>
+            <button
+              onClick={() => window.print()}
+              className="inline-flex items-center gap-2.5 rounded-full border border-line px-6 py-3 text-sm font-medium text-ink-soft transition-colors duration-300 hover:border-line-strong hover:text-ink"
+            >
+              <Printer size={15} strokeWidth={1.5} /> Print
             </button>
           </div>
         </header>

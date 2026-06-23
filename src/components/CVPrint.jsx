@@ -38,7 +38,7 @@ const personalProjects = [
   {
     name: "Eva — Multi-agent marketing team",
     meta: "Generative AI · live demo",
-    description: "Give it something to market (a product, a book, a service) and a team of specialised AI agents collaborates to produce the whole campaign audience, strategy, copy and creative concepts instead of one model doing everything. Currently building and testing how the agents split the work and hand off to each other."
+    description: <>Give it something to market (a product, a book, a service) and a team of specialised AI agents — strategist, copywriter, designer and critic, run by a lead — collaborates to produce the whole campaign instead of one model doing everything. You watch them hand off, critique and redo each other's work live. Every model call runs through one router that spreads work across <b>seven</b> free providers, with rate budgets, cooldowns and a fallback ladder, so a run degrades instead of dying.</>
   },
   {
     name: "Floating Waste Detection",

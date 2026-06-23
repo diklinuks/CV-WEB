@@ -6,6 +6,7 @@ import KineticHeading from "../components/KineticHeading";
 import DemoEmbed from "../components/DemoEmbed";
 import MagneticButton from "../components/MagneticButton";
 import Reveal from "../components/Reveal";
+import usePageTitle from "../hooks/usePageTitle";
 
 function Section({ s }) {
   if (s.type === "h") return <h3 className="mt-8 font-clash text-[1.5rem] font-semibold tracking-[-0.01em] text-ink">{s.text}</h3>;
@@ -28,6 +29,7 @@ function Section({ s }) {
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = getProject(slug);
+  usePageTitle(project && `${project.name} — Tymur Abdurakhmanov`);
   if (!project) return <Navigate to="/projects" replace />;
 
   return (
@@ -52,7 +54,23 @@ export default function ProjectDetail() {
           >
             {project.lead}
           </motion.p>
-          <ul className="mt-7 flex flex-wrap gap-2">
+          {project.category && (
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.6 }}
+              className="mt-6"
+            >
+              <span
+                className="inline-flex items-center gap-2 rounded-full border border-line px-3.5 py-1.5 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-cyan"
+                style={{ backgroundColor: "color-mix(in srgb, var(--cyan) 7%, transparent)" }}
+              >
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-cyan" />
+                {project.category}
+              </span>
+            </motion.p>
+          )}
+          <ul className="mt-5 flex flex-wrap gap-2">
             {project.tags.map((t) => (
               <li key={t} className="rounded-full border border-line px-3 py-1 font-mono text-[0.72rem] text-ink-muted">{t}</li>
             ))}

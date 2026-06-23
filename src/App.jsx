@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Component, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import TopBar from "./components/TopBar";
@@ -24,6 +24,13 @@ function ScrollToTop() {
   return null;
 }
 
+// Decorative layers must never take the whole app down with them.
+class DecorBoundary extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() { return this.state.failed ? null : this.props.children; }
+}
+
 const pageMotion = {
   initial: { opacity: 0, filter: "blur(10px)", y: 16, scale: 0.985 },
   animate: { opacity: 1, filter: "blur(0px)", y: 0, scale: 1 },
@@ -44,7 +51,7 @@ export default function App() {
   return (
     <div className="relative flex min-h-[100dvh] flex-col">
       <ScrollToTop />
-      {showShaderBg && <CosmicBackground />}
+      {showShaderBg && <DecorBoundary><CosmicBackground /></DecorBoundary>}
       <CursorGlow />
       <div className="grain" />
       {!onSplashOrHub && <TopBar />}

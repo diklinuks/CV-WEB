@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import KineticHeading from "../components/KineticHeading";
 import ContactList from "../components/ContactList";
+import usePageTitle from "../hooks/usePageTitle";
 
 export default function Contact() {
+  usePageTitle("Contact — Tymur Abdurakhmanov");
   return (
     <>
       <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-content flex-col justify-center px-6 py-28">

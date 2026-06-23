@@ -1,7 +1,9 @@
 import PageHeader from "../components/PageHeader";
 import ProjectCarousel from "../components/ProjectCarousel";
+import usePageTitle from "../hooks/usePageTitle";
 
 export default function Projects() {
+  usePageTitle("Projects — Tymur Abdurakhmanov");
   return (
     <>
       <div className="relative z-10 mx-auto w-full max-w-wide px-6 md:px-10">

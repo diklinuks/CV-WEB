@@ -3,6 +3,7 @@ export const projects = [
   {
     slug: "betsy",
     name: "Betsy",
+    category: "Generative AI",
     tagline: "An AI agent that runs purchasing for a small manufacturer.",
     lead:
       "Betsy handles procurement across a 90-day simulation. She watches stock, reorders before things run out, picks suppliers, places orders, and asks a human before the big decisions.",
@@ -12,7 +13,7 @@ export const projects = [
     demoEmbed: false,
     demoNote: "Free hosting, so the demo can take ~30 seconds to wake up.",
     docs: "https://github.com/diklinuks/Betsy-Obsidian",
-    year: "2025",
+    year: "2026",
     sections: [
       { type: "h", text: "What it does" },
       {
@@ -42,8 +43,51 @@ export const projects = [
   },
 
   {
+    slug: "eva",
+    name: "Eva",
+    category: "Generative AI",
+    tagline: "A team of AI agents that builds a marketing campaign together.",
+    lead:
+      "Give Eva a product, book or service and a team of specialist agents — a strategist, a copywriter, a designer and a critic, run by a lead — works up the whole campaign together, while you watch them hand off, critique and redo each other's work in real time.",
+    tags: ["Multi-agent", "LiteLLM", "FastAPI", "SSE", "React", "Python"],
+    repo: "https://github.com/diklinuks/Eva-Multi-agent",
+    demo: "https://eva-r2au.onrender.com",
+    demoLabel: "eva-r2au.onrender.com",
+    demoNote: "Free hosting, so the first run can take ~30–50 seconds to wake up.",
+    docs: "https://github.com/diklinuks/Eva-Obsidian",
+    year: "2026",
+    sections: [
+      { type: "h", text: "What it does" },
+      {
+        type: "p",
+        text:
+          "Eva turns a product, book or service into a finished marketing campaign: who it is for, how to position it, three key messages, channel-ready copy and a generated concept image. The work is split across a team of specialists — Luna on strategy, Mees on copy, Sam on design and Chris as the critic — coordinated by a lead, instead of one model trying to do everything at once.",
+      },
+      { type: "h", text: "How the demo works" },
+      {
+        type: "p",
+        text:
+          "The screen is split in two. On the left you watch the team work: each agent posts to a shared message bus as it picks up a task, hands off or asks for a change, so the collaboration is something you can actually read rather than a loading spinner. On the right the campaign builds up section by section. When Chris flags weak work, the lead sends it straight back to the agent who produced it for one focused revision before presenting the final result. You can type a short brief or upload a PDF for it to work from.",
+      },
+      { type: "h", text: "Technical choices" },
+      {
+        type: "p",
+        text:
+          "Every model call goes through a single LiteLLM router that spreads work across up to seven free providers (Groq, Gemini, Cerebras, OpenRouter, GitHub Models, SambaNova, and a local Ollama at the bottom of the ladder). Each provider has its own rate budget; when one hits a limit the router parks it for a cooldown and shifts to the next, degrading down the ladder instead of failing — a slow run that finishes beats a fast run that dies. The agents share state through a blackboard, where each writes only its own section, and talk over a logged message bus, so the collaboration is real and inspectable instead of staged. Orchestration is plain Python (FastAPI with server-sent events) behind one POST /campaign contract, so a different engine such as n8n or CrewAI can be dropped in later and benchmarked head-to-head.",
+      },
+      { type: "h", text: "What's next" },
+      {
+        type: "p",
+        text:
+          "Wiring the alternative engines behind the same contract for a like-for-like comparison, a sharper quality bar for the critic, and persisting full runs to Postgres so campaigns can be revisited and compared.",
+      },
+    ],
+  },
+
+  {
     slug: "waste-detection",
     name: "Floating Waste Detection",
+    category: "Computer Vision",
     tagline: "A computer-vision model that finds floating waste in water.",
     lead:
       "I trained a model to spot floating waste in water. It runs live in your browser and scores video frame by frame, with nothing sent to a server.",
@@ -83,6 +127,7 @@ export const projects = [
   {
     slug: "airbnb-ml",
     name: "Amsterdam Airbnb",
+    category: "Machine Learning",
     tagline: "Price and market analysis for Amsterdam short-stay listings.",
     lead:
       "I set out to predict nightly prices for Amsterdam listings, found the data could not carry it, and turned the project into a market-segmentation map instead.",

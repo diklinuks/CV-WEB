@@ -66,7 +66,16 @@ export default function ProjectCarousel() {
                     </span>
                   </div>
 
-                  <h3 className="mt-6 font-fraunces text-[2rem] font-semibold leading-[1.05] tracking-[-0.02em]">{p.name}</h3>
+                  {p.category && (
+                    <span
+                      className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-full border border-line px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-[0.12em]"
+                      style={{ color: ACCENTS[i % ACCENTS.length] }}
+                    >
+                      <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: ACCENTS[i % ACCENTS.length] }} />
+                      {p.category}
+                    </span>
+                  )}
+                  <h3 className="mt-3 font-fraunces text-[2rem] font-semibold leading-[1.05] tracking-[-0.02em]">{p.name}</h3>
                   <p className="mt-3 text-[0.98rem] leading-relaxed text-ink-soft">{p.tagline}</p>
 
                   <div className="mt-auto pt-6">
